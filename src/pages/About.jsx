@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import drabubakar from "../assets/drabubakarkhan.png"
 
 const About = () => {
   return (
@@ -39,7 +40,7 @@ const About = () => {
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#f0f9ff] rounded-full -z-10 blur-3xl opacity-60"></div>
               <div className="relative aspect-[4/5] rounded-[4rem] overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000 border-[16px] border-white">
                 <img 
-                  src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=800" 
+                  src={drabubakar} 
                   alt="Dr. Abubakar Khan" 
                   className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[2000ms]"
                 />

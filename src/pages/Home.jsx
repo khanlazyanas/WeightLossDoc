@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+// Image ko yahan import karein (Ensure the path is correct based on your folder structure)
+import DrAbubakarImg from '../assets/drabubakarkhan.png'; 
 
 const Home = () => {
   const [weight, setWeight] = useState('');
@@ -8,7 +10,7 @@ const Home = () => {
   const [message, setMessage] = useState('');
   const [counter, setCounter] = useState(15420);
 
-  // Live Counter Simulation (Silicon Valley Style)
+  // Live Counter Simulation
   useEffect(() => {
     const interval = setInterval(() => {
       setCounter(prev => prev + Math.floor(Math.random() * 2));
@@ -32,9 +34,8 @@ const Home = () => {
   return (
     <div className="font-sans text-[#0f172a] bg-white selection:bg-[#10b9bd] selection:text-white">
       
-      {/* ================= HERO: THE DISRUPTOR LAYOUT ================= */}
+      {/* ================= HERO SECTION ================= */}
       <section className="relative pt-32 pb-40 px-6 overflow-hidden bg-[#f8fafc]">
-        {/* Silicon Valley Grid Pattern Overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0f172a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
         
         <div className="container mx-auto max-w-7xl relative z-10">
@@ -47,7 +48,7 @@ const Home = () => {
 
               <h1 className="text-6xl md:text-8xl font-black tracking-[-0.04em] leading-[0.9] mb-10">
                 Forget Diets. <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10b9bd] via-[#0ea5e9] to-[#0f172a]">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#10b9bd] via-[#0ea5e9] to-[#0f172a]">
                   Fix Biology.
                 </span>
               </h1>
@@ -69,21 +70,24 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Hero Image Section */}
+            {/* HERO IMAGE SECTION WITH YOUR IMAGE */}
             <div className="w-full lg:w-2/5 relative">
-               <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white aspect-[4/5]">
-                  <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop" alt="Dr. Abubakar Khan" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"/>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 via-transparent to-transparent"></div>
+               <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border-12 border-white aspect-4/5">
+                  <img 
+                    src={DrAbubakarImg} 
+                    alt="Dr. Abubakar Khan" 
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#0f172a]/80 via-transparent to-transparent"></div>
                   
-                  {/* UPDATED NAME HERE */}
                   <div className="absolute bottom-10 left-10 text-white">
                     <p className="text-3xl md:text-4xl font-black tracking-tighter leading-tight">Dr. Abubakar <br/> Khan</p>
                     <p className="text-[9px] font-black uppercase tracking-[0.4em] text-[#10b9bd] mt-2">Chief Medical Officer</p>
                   </div>
                </div>
                
-               {/* Floating Metric Card */}
-               <div className="absolute -right-10 top-20 bg-white p-8 rounded-[2rem] shadow-2xl border border-slate-100 hidden xl:block">
+               {/* --- CHANGED POSITION FROM TOP TO BOTTOM TO AVOID COVERING FACE --- */}
+               <div className="absolute -right-10 bottom-20 bg-white p-8 rounded-4xl shadow-2xl border border-slate-100 hidden xl:block">
                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Total Bio-Mass Lost</p>
                   <p className="text-4xl font-black tracking-tighter text-[#0f172a]">{counter.toLocaleString()} kg</p>
                   <div className="w-full h-1 bg-slate-100 mt-4 rounded-full overflow-hidden">
@@ -98,43 +102,43 @@ const Home = () => {
       {/* ================= METABOLIC INTELLIGENCE (BMI) ================= */}
       <section className="py-32 px-6">
         <div className="container mx-auto max-w-6xl">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 bg-[#0f172a] rounded-[4rem] overflow-hidden shadow-2xl border-[16px] border-[#0f172a]">
-              
-              <div className="bg-white p-12 lg:p-20 flex flex-col justify-center rounded-[3rem]">
-                <h2 className="text-4xl lg:text-6xl font-black tracking-tighter mb-8">Bio-Data <br/>Analysis.</h2>
-                <p className="text-slate-500 text-lg font-medium mb-12 leading-relaxed">
-                  Our system evaluates your current biological state before designing your personalized metabolic protocol.
-                </p>
-                <form onSubmit={calculateBMI} className="space-y-8">
-                   <div className="flex gap-8">
-                      <div className="w-1/2 space-y-2 border-b-2 border-slate-100 focus-within:border-[#10b9bd] transition-all">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Weight / KG</label>
-                        <input type="number" required value={weight} onChange={(e)=>setWeight(e.target.value)} className="w-full py-4 text-3xl font-black outline-none bg-transparent" placeholder="00" />
-                      </div>
-                      <div className="w-1/2 space-y-2 border-b-2 border-slate-100 focus-within:border-[#10b9bd] transition-all">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Height / CM</label>
-                        <input type="number" required value={height} onChange={(e)=>setHeight(e.target.value)} className="w-full py-4 text-3xl font-black outline-none bg-transparent" placeholder="000" />
-                      </div>
-                   </div>
-                   <button type="submit" className="bg-[#0f172a] text-white px-10 py-5 rounded-2xl text-xs font-black uppercase tracking-[0.2em] hover:bg-[#10b9bd] transition-all w-full lg:w-auto">Run Diagnostic</button>
-                </form>
-              </div>
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 bg-[#0f172a] rounded-[4rem] overflow-hidden shadow-2xl border-16 border-[#0f172a]">
+             
+             <div className="bg-white p-12 lg:p-20 flex flex-col justify-center rounded-[3rem]">
+               <h2 className="text-4xl lg:text-6xl font-black tracking-tighter mb-8">Bio-Data <br/>Analysis.</h2>
+               <p className="text-slate-500 text-lg font-medium mb-12 leading-relaxed">
+                 Our system evaluates your current biological state before designing your personalized metabolic protocol.
+               </p>
+               <form onSubmit={calculateBMI} className="space-y-8">
+                  <div className="flex gap-8">
+                     <div className="w-1/2 space-y-2 border-b-2 border-slate-100 focus-within:border-[#10b9bd] transition-all">
+                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Weight / KG</label>
+                       <input type="number" required value={weight} onChange={(e)=>setWeight(e.target.value)} className="w-full py-4 text-3xl font-black outline-none bg-transparent" placeholder="00" />
+                     </div>
+                     <div className="w-1/2 space-y-2 border-b-2 border-slate-100 focus-within:border-[#10b9bd] transition-all">
+                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Height / CM</label>
+                       <input type="number" required value={height} onChange={(e)=>setHeight(e.target.value)} className="w-full py-4 text-3xl font-black outline-none bg-transparent" placeholder="000" />
+                     </div>
+                  </div>
+                  <button type="submit" className="bg-[#0f172a] text-white px-10 py-5 rounded-2xl text-xs font-black uppercase tracking-[0.2em] hover:bg-[#10b9bd] transition-all w-full lg:w-auto">Run Diagnostic</button>
+               </form>
+             </div>
 
-              <div className="bg-[#0f172a] p-12 lg:p-20 flex flex-col items-center justify-center text-center">
-                 {!bmi ? (
-                   <div className="text-slate-500 space-y-4">
-                      <div className="w-20 h-20 border-4 border-slate-800 border-t-[#10b9bd] rounded-full animate-spin mx-auto"></div>
-                      <p className="text-[10px] font-black uppercase tracking-[0.4em]">Waiting for Input</p>
-                   </div>
-                 ) : (
-                   <div className="animate-in zoom-in duration-700">
-                      <p className="text-[#10b9bd] text-[10px] font-black uppercase tracking-[0.5em] mb-4">Diagnostic Complete</p>
-                      <h3 className="text-8xl lg:text-[10rem] font-black text-white leading-none mb-6">{bmi}</h3>
-                      <p className="text-2xl font-bold text-slate-400 italic">"{message}"</p>
-                      <Link to="/book-appointment" className="mt-12 inline-block border-b-2 border-[#10b9bd] text-white pb-2 font-black uppercase tracking-widest text-[10px] hover:text-[#10b9bd] transition-all">Request Clinical Protocol</Link>
-                   </div>
-                 )}
-              </div>
+             <div className="bg-[#0f172a] p-12 lg:p-20 flex flex-col items-center justify-center text-center">
+                {!bmi ? (
+                  <div className="text-slate-500 space-y-4">
+                     <div className="w-20 h-20 border-4 border-slate-800 border-t-[#10b9bd] rounded-full animate-spin mx-auto"></div>
+                     <p className="text-[10px] font-black uppercase tracking-[0.4em]">Waiting for Input</p>
+                  </div>
+                ) : (
+                  <div className="animate-in zoom-in duration-700">
+                     <p className="text-[#10b9bd] text-[10px] font-black uppercase tracking-[0.5em] mb-4">Diagnostic Complete</p>
+                     <h3 className="text-8xl lg:text-[10rem] font-black text-white leading-none mb-6">{bmi}</h3>
+                     <p className="text-2xl font-bold text-slate-400 italic">"{message}"</p>
+                     <Link to="/book-appointment" className="mt-12 inline-block border-b-2 border-[#10b9bd] text-white pb-2 font-black uppercase tracking-widest text-[10px] hover:text-[#10b9bd] transition-all">Request Clinical Protocol</Link>
+                  </div>
+                )}
+             </div>
            </div>
         </div>
       </section>
@@ -143,22 +147,22 @@ const Home = () => {
       <section className="py-20 bg-white border-y border-slate-100">
         <div className="container mx-auto max-w-7xl px-6">
            <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
-              {[
-                { val: "98.2%", label: "Metabolic Success" },
-                { val: "10Y+", label: "R&D Experience" },
-                { val: "15k+", label: "Patients Optimized" },
-                { val: "24/7", label: "Medical Monitoring" }
-              ].map((stat, i) => (
-                <div key={i} className="space-y-2">
-                   <p className="text-5xl font-black tracking-tighter">{stat.val}</p>
-                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.label}</p>
-                </div>
-              ))}
+             {[
+               { val: "98.2%", label: "Metabolic Success" },
+               { val: "10Y+", label: "R&D Experience" },
+               { val: "15k+", label: "Patients Optimized" },
+               { val: "24/7", label: "Medical Monitoring" }
+             ].map((stat, i) => (
+               <div key={i} className="space-y-2">
+                  <p className="text-5xl font-black tracking-tighter">{stat.val}</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.label}</p>
+               </div>
+             ))}
            </div>
         </div>
       </section>
 
-      {/* ================= THE SCIENCE / ABOUT ================= */}
+      {/* ================= THE SCIENCE SECTION ================= */}
       <section className="py-40 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row gap-24 items-center">
@@ -171,7 +175,7 @@ const Home = () => {
             
             <div className="w-full lg:w-1/2">
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-[2px] bg-[#10b9bd]"></div>
+                <div className="w-12 h-0.5 bg-[#10b9bd]"></div>
                 <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#10b9bd]">Clinical Authority</span>
               </div>
               <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-10 leading-[0.95]">Precision Care. <br/><span className="text-slate-300">No Character Flaws.</span></h2>
@@ -214,22 +218,80 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ================= MINIMAL FAQ ================= */}
+      {/* ================= PINNACLE FAQ & CLINICAL INTAKE ================= */}
       <section className="py-40 px-6 max-w-4xl mx-auto">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.8em] text-center text-slate-300 mb-20">Support / FAQ</h3>
-        <div className="space-y-4">
+        <div className="text-center mb-24 space-y-4">
+          <h3 className="text-[10px] font-black uppercase tracking-[0.8em] text-slate-300">Support / FAQ</h3>
+          <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-[#0f172a]">Common Queries.</h2>
+        </div>
+        
+        <div className="space-y-6">
           {[
-            { q: "Is this medically supervised?", a: "Every protocol is managed directly by Board Certified specialists. We monitor blood biomarkers and hormonal profiles throughout." },
-            { q: "How fast are the results?", a: "Biological optimization begins within 48 hours. Visible physical transformation typically scales after 14 days of adherence." }
+            { 
+              q: "Is this medically supervised?", 
+              a: "Every protocol is managed directly by Board Certified specialists. We monitor blood biomarkers and hormonal profiles throughout to ensure absolute clinical safety." 
+            },
+            { 
+              q: "How fast are the results?", 
+              a: "Biological optimization begins within 48 hours. Visible physical transformation and significant metabolic shifts typically scale after 14 days of strict adherence." 
+            },
+            { 
+              q: "Do you treat PCOD and Thyroid issues?", 
+              a: "Yes. Our specialty lies in managing metabolic weight gain caused by hormonal imbalances like PCOD, Hypothyroidism, and Insulin Resistance using FDA-approved clinical paths." 
+            },
+            { 
+              q: "Is the weight loss permanent?", 
+              a: "Our goal is 'Metabolic Set-Point' shifting. By correcting the root hormonal cause, we help your body maintain its new weight without the typical 'yo-yo' effect of crash diets." 
+            },
+            { 
+              q: "Can I consult online (Tele-Medicine)?", 
+              a: "We offer secure, end-to-end encrypted video consultations for patients globally, providing the same level of diagnostic precision as our physical clinic." 
+            }
           ].map((f, i) => (
-            <details key={i} className="group bg-[#f8fafc] rounded-3xl p-2">
-              <summary className="list-none p-8 flex items-center justify-between cursor-pointer">
-                <span className="text-lg font-black uppercase tracking-tight">{f.q}</span>
-                <span className="text-[#10b9bd] group-open:rotate-45 transition-transform">+</span>
+            <details key={i} className="group bg-[#f8fafc] rounded-[2.5rem] border border-transparent hover:border-slate-200 transition-all duration-700 overflow-hidden">
+              <summary className="list-none p-10 flex items-center justify-between cursor-pointer focus:outline-none">
+                <span className="text-lg font-black uppercase tracking-tight text-[#0f172a]">{f.q}</span>
+                <div className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-[#10b9bd] group-open:rotate-45 group-open:bg-[#0f172a] group-open:text-white transition-all duration-700 shadow-sm">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6v12m6-6H6" strokeWidth="2.5" strokeLinecap="round"/></svg>
+                </div>
               </summary>
-              <div className="px-8 pb-8 text-slate-500 font-medium leading-relaxed">{f.a}</div>
+              <div className="px-10 pb-10 text-slate-500 font-medium leading-relaxed text-lg animate-in fade-in slide-in-from-top-4 duration-700">
+                {f.a}
+              </div>
             </details>
           ))}
+        </div>
+
+        <div className="mt-32 text-center">
+          <Link 
+            to="/book-appointment" 
+            className="group relative inline-flex items-center justify-center px-16 py-9 rounded-full border border-slate-200 bg-white overflow-hidden transition-all duration-1000 hover:border-[#0f172a] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] active:scale-95"
+          >
+            <div className="absolute inset-0 top-full bg-[#0f172a] transition-all duration-[600ms] ease-[cubic-bezier(0.85,0,0.15,1)] group-hover:top-0"></div>
+            
+            <div className="relative flex items-center gap-8">
+              <span className="text-[11px] font-black uppercase tracking-[0.6em] text-[#0f172a] group-hover:text-white transition-colors duration-500">
+                Begin Clinical Intake
+              </span>
+              
+              <div className="relative flex items-center justify-center">
+                <svg 
+                  className="w-5 h-5 text-[#0f172a] group-hover:text-white group-hover:translate-x-2 transition-all duration-500 ease-out" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </div>
+            </div>
+          </Link>
+          
+          <div className="mt-12 flex items-center justify-center gap-6 opacity-30">
+             <div className="w-12 h-px bg-slate-400"></div>
+             <p className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-500">Protocol v4.0</p>
+             <div className="w-12 h-px bg-slate-400"></div>
+          </div>
         </div>
       </section>
     </div>

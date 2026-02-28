@@ -42,9 +42,9 @@ const Header = () => {
 
           {/* Right Side: Contact */}
           <div className="flex items-center gap-4 md:gap-8">
-            <a href="tel:+919876543210" className="hover:text-[#10b9bd] transition-all duration-500 flex items-center gap-2 group">
+            <a href="tel:+919651237672" className="hover:text-[#10b9bd] transition-all duration-500 flex items-center gap-2 group">
               <span className="opacity-50 group-hover:opacity-100 hidden xs:inline">Contact</span>
-              <span className="tracking-widest whitespace-nowrap">+91 98765 43210</span>
+              <span className="tracking-widest whitespace-nowrap">+91 9651237672</span>
             </a>
           </div>
         </div>
