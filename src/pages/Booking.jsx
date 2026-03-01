@@ -1,22 +1,92 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Loader2 } from 'lucide-react';
 
 const Booking = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    interest: 'Metabolic Engineering',
+    interest: 'Metabolic Optimization', // Match initial value with options
     message: ''
   });
+  
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  // Handle Input Changes
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Protocol Request Sent. Dr. Khan's office will contact you for clinical intake.");
+    setIsLoading(true);
+    
+    // Show a loading toast that we can update later
+    const toastId = toast.loading("Initializing clinical protocol...", {
+      theme: "dark",
+      position: "bottom-right"
+    });
+
+    try {
+      // Connecting to your Live Render Backend
+      const response = await fetch('https://weigtlossbackend.onrender.com/api/bookings/initialize', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Update toast to Success
+        toast.update(toastId, { 
+          render: "Protocol Request Sent! Dr. Khan's office will contact you.", 
+          type: "success", 
+          isLoading: false, 
+          autoClose: 5000,
+          theme: "dark"
+        });
+
+        // Clear the form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          interest: 'Metabolic Optimization',
+          message: ''
+        });
+      } else {
+        // Handle Server side errors
+        throw new Error(data.error || "System rejected the request.");
+      }
+    } catch (error) {
+      // Update toast to Error
+      toast.update(toastId, { 
+        render: error.message || "Connection Error. Please try again later.", 
+        type: "error", 
+        isLoading: false, 
+        autoClose: 5000,
+        theme: "dark"
+      });
+      console.error("Booking Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="font-sans text-[#0f172a] bg-white selection:bg-[#10b9bd] selection:text-white min-h-screen">
       
+      {/* Toast Notification Container */}
+      <ToastContainer />
+
       {/* ================= ELITE BANNER: THE INTAKE ================= */}
       <section className="relative pt-32 pb-40 px-6 overflow-hidden bg-[#f8fafc]">
         {/* Technical Grid Overlay */}
@@ -74,7 +144,7 @@ const Booking = () => {
                </div>
 
                <div className="relative z-10 pt-16 border-t border-slate-800 italic text-slate-400 font-serif text-lg leading-relaxed">
-                  "Precision medicine requires precision data. We look forward to analyzing your biology."
+                 "Precision medicine requires precision data. We look forward to analyzing your biology."
                </div>
             </div>
 
@@ -88,6 +158,9 @@ const Booking = () => {
                     <input 
                       required
                       type="text" 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       placeholder="Jane Cooper" 
                       className="w-full bg-transparent text-2xl font-black outline-none placeholder:text-slate-200"
                     />
@@ -97,6 +170,9 @@ const Booking = () => {
                     <input 
                       required
                       type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="jane@clinical.io" 
                       className="w-full bg-transparent text-2xl font-black outline-none placeholder:text-slate-200"
                     />
@@ -109,17 +185,25 @@ const Booking = () => {
                     <input 
                       required
                       type="tel" 
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
                       placeholder="+91 00000 00000" 
                       className="w-full bg-transparent text-2xl font-black outline-none placeholder:text-slate-200"
                     />
                   </div>
                   <div className="space-y-4 border-b-2 border-slate-100 focus-within:border-[#10b9bd] transition-all pb-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Protocol Interest</label>
-                    <select className="w-full bg-transparent text-xl font-black outline-none appearance-none cursor-pointer">
-                      <option>Metabolic Optimization</option>
-                      <option>Hormonal Engineering (PCOS)</option>
-                      <option>Bariatric Clinical Case</option>
-                      <option>Precision Nutrition Lab</option>
+                    <select 
+                      name="interest"
+                      value={formData.interest}
+                      onChange={handleChange}
+                      className="w-full bg-transparent text-xl font-black outline-none appearance-none cursor-pointer"
+                    >
+                      <option value="Metabolic Optimization">Metabolic Optimization</option>
+                      <option value="Hormonal Engineering (PCOS)">Hormonal Engineering (PCOS)</option>
+                      <option value="Bariatric Clinical Case">Bariatric Clinical Case</option>
+                      <option value="Precision Nutrition Lab">Precision Nutrition Lab</option>
                     </select>
                   </div>
                 </div>
@@ -128,6 +212,9 @@ const Booking = () => {
                   <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Biological Context (Optional)</label>
                   <textarea 
                     rows="2"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     placeholder="Briefly state your metabolic objectives..." 
                     className="w-full bg-transparent text-xl font-medium outline-none placeholder:text-slate-200 resize-none"
                   ></textarea>
@@ -136,12 +223,22 @@ const Booking = () => {
                 <div className="pt-10">
                   <button 
                     type="submit" 
-                    className="group relative w-full bg-[#0f172a] text-white py-8 rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(16,185,189,0.5)] active:scale-[0.98]"
+                    disabled={isLoading}
+                    className={`group relative w-full bg-[#0f172a] text-white py-8 rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(16,185,189,0.5)] active:scale-[0.98] ${isLoading ? 'opacity-80 cursor-not-allowed' : ''}`}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-[#10b9bd] to-[#0ea5e9] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <span className="relative z-10 text-xs font-black uppercase tracking-[0.4em] flex items-center justify-center gap-4">
-                      Initialize Diagnostic Protocol
-                      <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          Processing Biological Data...
+                        </>
+                      ) : (
+                        <>
+                          Initialize Diagnostic Protocol
+                          <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        </>
+                      )}
                     </span>
                   </button>
                 </div>
@@ -157,7 +254,7 @@ const Booking = () => {
 
       {/* ================= DATA PRIVACY BADGE ================= */}
       <section className="pb-32 text-center opacity-40">
-         <div className="flex items-center justify-center gap-12 grayscale">
+         <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-12 grayscale">
             <span className="text-[10px] font-black uppercase tracking-widest border border-slate-300 px-4 py-2 rounded-lg">Encrypted Protocol</span>
             <span className="text-[10px] font-black uppercase tracking-widest border border-slate-300 px-4 py-2 rounded-lg">Clinical Privacy</span>
             <span className="text-[10px] font-black uppercase tracking-widest border border-slate-300 px-4 py-2 rounded-lg">Board Verified</span>
