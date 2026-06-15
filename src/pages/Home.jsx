@@ -6,294 +6,334 @@ import DrAbubakarImg from '../assets/drabubakarkhan.png';
 const Home = () => {
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
-  const [bmi, setBmi] = useState(null);
-  const [message, setMessage] = useState('');
+  const [bmiResult, setBmiResult] = useState(null);
   const [counter, setCounter] = useState(15420);
 
-  // Live Counter Simulation
+  // Live Counter Simulation (Smooth increment for premium feel)
   useEffect(() => {
     const interval = setInterval(() => {
-      setCounter(prev => prev + Math.floor(Math.random() * 2));
-    }, 5000);
+      setCounter(prev => prev + Math.floor(Math.random() * 3));
+    }, 4500);
     return () => clearInterval(interval);
   }, []);
 
   const calculateBMI = (e) => {
     e.preventDefault();
-    if (weight && height) {
-      const hMetres = height / 100;
-      const bmiValue = (weight / (hMetres * hMetres)).toFixed(1);
-      setBmi(bmiValue);
-      if (bmiValue < 18.5) setMessage('Under-optimized');
-      else if (bmiValue < 25) setMessage('Peak Condition');
-      else if (bmiValue < 30) setMessage('Metabolic Strain');
-      else setMessage('Clinical Intervention Required');
+    const w = parseFloat(weight);
+    const h = parseFloat(height);
+
+    if (w > 0 && h > 0) {
+      const hMetres = h / 100;
+      const bmiValue = (w / (hMetres * hMetres)).toFixed(1);
+      
+      let status = '';
+      let colorClass = '';
+
+      if (bmiValue < 18.5) {
+        status = 'Under-optimized Biomarkers';
+        colorClass = 'text-blue-400';
+      } else if (bmiValue < 25) {
+        status = 'Peak Metabolic Condition';
+        colorClass = 'text-[#10b9bd]'; // Brand Teal
+      } else if (bmiValue < 30) {
+        status = 'Mild Metabolic Strain Detected';
+        colorClass = 'text-amber-500'; // Warning Orange
+      } else {
+        status = 'Clinical Intervention Required';
+        colorClass = 'text-rose-500'; // Critical Red
+      }
+
+      setBmiResult({ value: bmiValue, status, colorClass });
     }
   };
 
   return (
     <div className="font-sans text-[#0f172a] bg-white selection:bg-[#10b9bd] selection:text-white">
       
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative pt-32 pb-40 px-6 overflow-hidden bg-[#f8fafc]">
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0f172a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+      {/* ================= ULTRA PREMIUM HERO SECTION ================= */}
+      <section className="relative pt-24 md:pt-32 pb-24 md:pb-40 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-[#f8fafc] via-white to-white">
+        {/* Subtle Architectural Grid */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)', backgroundSize: '64px 64px' }}></div>
         
+        {/* Ambient Clinical Glow */}
+        <div className="absolute top-[-10%] left-[-10%] md:top-[-20%] w-[30rem] md:w-[50rem] h-[30rem] md:h-[50rem] bg-[#10b9bd]/10 rounded-full blur-[100px] md:blur-[150px] pointer-events-none"></div>
+
         <div className="container mx-auto max-w-7xl relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-20">
-            <div className="w-full lg:w-3/5 text-center lg:text-left">
-              <div className="inline-flex items-center gap-3 bg-[#0f172a] text-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-10 shadow-2xl">
-                <span className="w-2 h-2 rounded-full bg-[#10b9bd] animate-pulse"></span>
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+            
+            {/* Left Content */}
+            <div className="w-full lg:w-3/5 text-center lg:text-left mt-8 lg:mt-0">
+              <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-sm border border-slate-200/60 text-[#0f172a] px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-8 sm:mb-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+                <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#10b9bd] animate-pulse shadow-[0_0_10px_rgba(16,185,189,0.8)]"></span>
                 Next-Gen Metabolic Engineering
               </div>
 
-              <h1 className="text-6xl md:text-8xl font-black tracking-[-0.04em] leading-[0.9] mb-10">
-                Forget Diets. <br/>
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#10b9bd] via-[#0ea5e9] to-[#0f172a]">
+              <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] font-black tracking-[-0.04em] leading-[1] md:leading-[0.9] mb-6 sm:mb-8">
+                Forget Diets. <br className="hidden sm:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#10b9bd]">
                   Fix Biology.
                 </span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-slate-500 font-medium mb-12 max-w-2xl leading-relaxed">
-                We use precision medicine and metabolic data to reverse obesity at the cellular level. Private. Clinical. Guaranteed.
+              <p className="text-lg sm:text-xl md:text-2xl text-slate-500 font-medium mb-10 sm:mb-12 max-w-xl md:max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                Precision medicine and metabolic data applied to reverse obesity at the cellular level. <strong className="text-[#0f172a]">Private. Clinical. Guaranteed.</strong>
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8">
-                <Link to="/services" className="w-full sm:w-auto bg-[#0f172a] text-white px-12 py-6 rounded-2xl text-sm font-black uppercase tracking-widest hover:bg-[#10b9bd] transition-all duration-500 shadow-[0_20px_40px_-10px_rgba(15,23,42,0.3)] active:scale-95">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6">
+                <Link to="/book-appointment" className="w-full sm:w-auto text-center bg-[#0f172a] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-[#10b9bd] transition-all duration-500 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.5)] hover:shadow-[0_20px_40px_-15px_rgba(16,185,189,0.5)] hover:-translate-y-1">
                   Start Evaluation
                 </Link>
-                <Link to="/transformations" className="group flex items-center gap-4 py-4">
-                   <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 flex items-center justify-center group-hover:border-[#10b9bd] transition-all">
-                      <svg className="w-5 h-5 text-[#0f172a] group-hover:text-[#10b9bd]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                <Link to="/transformations" className="group flex items-center justify-center w-full sm:w-auto gap-3 sm:gap-4 py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl hover:bg-slate-50 transition-all duration-300">
+                   <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-lg sm:rounded-xl bg-white border border-slate-200 flex items-center justify-center group-hover:border-[#10b9bd] group-hover:shadow-md transition-all duration-300">
+                      <svg className="w-4 sm:w-5 h-4 sm:h-5 text-[#0f172a] group-hover:text-[#10b9bd] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                    </div>
-                   <span className="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-[#0f172a]">The Data Lab</span>
+                   <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-[#0f172a] group-hover:text-[#10b9bd] transition-colors">The Data Lab</span>
                 </Link>
               </div>
             </div>
 
-            {/* HERO IMAGE SECTION WITH YOUR IMAGE */}
-            <div className="w-full lg:w-2/5 relative">
-               <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border-12 border-white aspect-4/5">
+            {/* Right Image Section */}
+            <div className="w-full lg:w-2/5 relative mt-6 lg:mt-0 px-4 sm:px-0">
+               <div className="relative rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] border-[6px] sm:border-[8px] border-white aspect-[4/5] sm:aspect-square lg:aspect-[4/5] bg-slate-100 group mx-auto max-w-sm sm:max-w-none">
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-100 animate-pulse"></div>
                   <img 
                     src={DrAbubakarImg} 
                     alt="Dr. Abubakar Khan" 
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                    className="relative w-full h-full object-cover object-top z-10 transition-transform duration-1000 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-[#0f172a]/80 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/90 via-[#0f172a]/20 to-transparent z-20"></div>
                   
-                  <div className="absolute bottom-10 left-10 text-white">
-                    <p className="text-3xl md:text-4xl font-black tracking-tighter leading-tight">Dr. Abubakar <br/> Khan</p>
-                    <p className="text-[9px] font-black uppercase tracking-[0.4em] text-[#10b9bd] mt-2">Chief Medical Officer</p>
+                  <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 text-white z-30">
+                    <p className="text-2xl sm:text-3xl font-black tracking-tight mb-0.5 sm:mb-1">Dr. Abubakar Khan</p>
+                    <p className="text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em] text-[#10b9bd]">Chief Medical Officer</p>
                   </div>
                </div>
                
-               {/* --- CHANGED POSITION FROM TOP TO BOTTOM TO AVOID COVERING FACE --- */}
-               <div className="absolute -right-10 bottom-20 bg-white p-8 rounded-4xl shadow-2xl border border-slate-100 hidden xl:block">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Total Bio-Mass Lost</p>
-                  <p className="text-4xl font-black tracking-tighter text-[#0f172a]">{counter.toLocaleString()} kg</p>
-                  <div className="w-full h-1 bg-slate-100 mt-4 rounded-full overflow-hidden">
-                    <div className="w-3/4 h-full bg-[#10b9bd]"></div>
+               {/* Floating Glassmorphism Stats Badge */}
+               <div className="absolute -left-2 sm:-left-8 md:-left-12 top-10 sm:top-16 bg-white/85 backdrop-blur-xl p-3 sm:p-5 rounded-2xl sm:rounded-3xl shadow-[0_15px_30px_-5px_rgba(0,0,0,0.1)] border border-white/60 z-40 animate-[bounce_4s_ease-in-out_infinite]">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                     <div className="w-8 sm:w-12 h-8 sm:h-12 rounded-xl sm:rounded-2xl bg-[#10b9bd]/10 flex items-center justify-center text-[#10b9bd]">
+                        <svg className="w-4 sm:w-6 h-4 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                     </div>
+                     <div>
+                        <p className="text-[7px] sm:text-[9px] font-black uppercase tracking-widest text-slate-500 mb-0.5">Bio-Mass Reduced</p>
+                        <p className="text-lg sm:text-2xl font-black tracking-tighter text-[#0f172a]">{counter.toLocaleString()} <span className="text-xs sm:text-sm font-bold text-slate-400">kg</span></p>
+                     </div>
                   </div>
                </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* ================= METABOLIC INTELLIGENCE (BMI) ================= */}
-      <section className="py-32 px-6">
+      {/* ================= INTERACTIVE CLINICAL DIAGNOSTIC (BMI) ================= */}
+      <section className="py-20 md:py-32 px-4 sm:px-6 bg-white relative">
         <div className="container mx-auto max-w-6xl">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 bg-[#0f172a] rounded-[4rem] overflow-hidden shadow-2xl border-16 border-[#0f172a]">
+           <div className="flex flex-col lg:flex-row bg-slate-50 rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-[0_15px_50px_-10px_rgba(0,0,0,0.05)] border border-slate-100/60">
              
-             <div className="bg-white p-12 lg:p-20 flex flex-col justify-center rounded-[3rem]">
-               <h2 className="text-4xl lg:text-6xl font-black tracking-tighter mb-8">Bio-Data <br/>Analysis.</h2>
-               <p className="text-slate-500 text-lg font-medium mb-12 leading-relaxed">
-                 Our system evaluates your current biological state before designing your personalized metabolic protocol.
+             {/* Left Input Form */}
+             <div className="w-full lg:w-1/2 p-8 sm:p-12 lg:p-20 flex flex-col justify-center bg-white relative z-10">
+               <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                 <div className="w-6 sm:w-8 h-[2px] bg-[#10b9bd]"></div>
+                 <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.4em] text-[#10b9bd]">Diagnostic Tool</span>
+               </div>
+               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 sm:mb-4 text-[#0f172a]">Metabolic Baseline.</h2>
+               <p className="text-slate-500 text-xs sm:text-sm font-medium mb-8 sm:mb-12 leading-relaxed">
+                 Enter your current biological metrics to initiate a preliminary algorithmic metabolic assessment.
                </p>
-               <form onSubmit={calculateBMI} className="space-y-8">
-                  <div className="flex gap-8">
-                     <div className="w-1/2 space-y-2 border-b-2 border-slate-100 focus-within:border-[#10b9bd] transition-all">
-                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Weight / KG</label>
-                       <input type="number" required value={weight} onChange={(e)=>setWeight(e.target.value)} className="w-full py-4 text-3xl font-black outline-none bg-transparent" placeholder="00" />
+
+               <form onSubmit={calculateBMI} className="space-y-6 sm:space-y-8">
+                  <div className="space-y-6 sm:space-y-8">
+                     <div className="group relative border-b-2 border-slate-200 focus-within:border-[#10b9bd] transition-colors pb-1 sm:pb-2">
+                       <label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 group-focus-within:text-[#10b9bd] transition-colors block mb-1">Current Weight (KG)</label>
+                       <input type="number" step="0.1" required value={weight} onChange={(e)=>setWeight(e.target.value)} className="w-full pt-1 sm:pt-2 text-3xl sm:text-4xl font-black outline-none bg-transparent text-[#0f172a] placeholder:text-slate-200 transition-all" placeholder="00.0" />
                      </div>
-                     <div className="w-1/2 space-y-2 border-b-2 border-slate-100 focus-within:border-[#10b9bd] transition-all">
-                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Height / CM</label>
-                       <input type="number" required value={height} onChange={(e)=>setHeight(e.target.value)} className="w-full py-4 text-3xl font-black outline-none bg-transparent" placeholder="000" />
+                     <div className="group relative border-b-2 border-slate-200 focus-within:border-[#10b9bd] transition-colors pb-1 sm:pb-2">
+                       <label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 group-focus-within:text-[#10b9bd] transition-colors block mb-1">Height (CM)</label>
+                       <input type="number" required value={height} onChange={(e)=>setHeight(e.target.value)} className="w-full pt-1 sm:pt-2 text-3xl sm:text-4xl font-black outline-none bg-transparent text-[#0f172a] placeholder:text-slate-200 transition-all" placeholder="000" />
                      </div>
                   </div>
-                  <button type="submit" className="bg-[#0f172a] text-white px-10 py-5 rounded-2xl text-xs font-black uppercase tracking-[0.2em] hover:bg-[#10b9bd] transition-all w-full lg:w-auto">Run Diagnostic</button>
+                  <button type="submit" className="bg-white border-2 border-[#0f172a] text-[#0f172a] px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-[#0f172a] hover:text-white transition-all duration-300 w-full lg:w-auto shadow-sm hover:shadow-xl mt-4 sm:mt-0">
+                    Compute Analysis
+                  </button>
                </form>
              </div>
 
-             <div className="bg-[#0f172a] p-12 lg:p-20 flex flex-col items-center justify-center text-center">
-                {!bmi ? (
-                  <div className="text-slate-500 space-y-4">
-                     <div className="w-20 h-20 border-4 border-slate-800 border-t-[#10b9bd] rounded-full animate-spin mx-auto"></div>
-                     <p className="text-[10px] font-black uppercase tracking-[0.4em]">Waiting for Input</p>
-                  </div>
-                ) : (
-                  <div className="animate-in zoom-in duration-700">
-                     <p className="text-[#10b9bd] text-[10px] font-black uppercase tracking-[0.5em] mb-4">Diagnostic Complete</p>
-                     <h3 className="text-8xl lg:text-[10rem] font-black text-white leading-none mb-6">{bmi}</h3>
-                     <p className="text-2xl font-bold text-slate-400 italic">"{message}"</p>
-                     <Link to="/book-appointment" className="mt-12 inline-block border-b-2 border-[#10b9bd] text-white pb-2 font-black uppercase tracking-widest text-[10px] hover:text-[#10b9bd] transition-all">Request Clinical Protocol</Link>
-                  </div>
-                )}
+             {/* Right Result Panel (Dynamic Colors) */}
+             <div className="w-full lg:w-1/2 bg-[#0f172a] p-8 sm:p-12 lg:p-20 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[300px] sm:min-h-[400px]">
+               {/* Animated Background Mesh */}
+               <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#10b9bd]/20 via-[#0f172a] to-[#0f172a] opacity-60"></div>
+               
+               {!bmiResult ? (
+                 <div className="text-slate-400 space-y-4 sm:space-y-6 relative z-10 flex flex-col items-center">
+                    <div className="w-16 sm:w-20 h-16 sm:h-20 border-[3px] border-slate-700/50 border-t-[#10b9bd] rounded-full animate-spin"></div>
+                    <p className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">Awaiting Telemetry</p>
+                 </div>
+               ) : (
+                 <div className="animate-in fade-in zoom-in-95 duration-500 relative z-10 flex flex-col items-center">
+                    <p className="text-slate-400 text-[8px] sm:text-[10px] font-black uppercase tracking-[0.5em] mb-2 sm:mb-4">Assessment Complete</p>
+                    <h3 className={`text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-black leading-none mb-4 sm:mb-6 tracking-tighter ${bmiResult.colorClass} drop-shadow-lg`}>
+                      {bmiResult.value}
+                    </h3>
+                    <div className="inline-block bg-slate-800/50 backdrop-blur-md px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-700/50 mb-6 sm:mb-10">
+                      <p className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${bmiResult.colorClass}`}>{bmiResult.status}</p>
+                    </div>
+                    <Link to="/book-appointment" className="group inline-flex items-center gap-2 text-white font-black text-[9px] sm:text-[10px] uppercase tracking-widest hover:text-[#10b9bd] transition-colors">
+                      Request Clinical Protocol 
+                      <svg className="w-3 sm:w-4 h-3 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </Link>
+                 </div>
+               )}
              </div>
+
            </div>
         </div>
       </section>
 
-      {/* ================= CLINICAL SUCCESS STATS ================= */}
-      <section className="py-20 bg-white border-y border-slate-100">
-        <div className="container mx-auto max-w-7xl px-6">
-           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+      {/* ================= REFINED CLINICAL SUCCESS STATS ================= */}
+      <section className="py-16 sm:py-24 bg-[#0f172a] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+        <div className="container mx-auto max-w-7xl px-6 relative z-10">
+           <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 sm:gap-y-16 gap-x-6 sm:gap-x-8 md:divide-x divide-slate-800/80">
              {[
                { val: "98.2%", label: "Metabolic Success" },
                { val: "10Y+", label: "R&D Experience" },
                { val: "15k+", label: "Patients Optimized" },
                { val: "24/7", label: "Medical Monitoring" }
              ].map((stat, i) => (
-               <div key={i} className="space-y-2">
-                  <p className="text-5xl font-black tracking-tighter">{stat.val}</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.label}</p>
+               <div key={i} className="text-center px-2 sm:px-4 group cursor-default">
+                  <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-2 sm:mb-3 text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-400 group-hover:to-[#10b9bd] transition-colors duration-500">{stat.val}</p>
+                  <p className="text-[8px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] text-slate-500 group-hover:text-white transition-colors duration-300">{stat.label}</p>
                </div>
              ))}
            </div>
         </div>
       </section>
 
-      {/* ================= THE SCIENCE SECTION ================= */}
-      <section className="py-40 px-6">
+      {/* ================= THE SCIENCE SECTION (Ultra Clean) ================= */}
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-white">
         <div className="container mx-auto max-w-7xl">
-          <div className="flex flex-col lg:flex-row gap-24 items-center">
-            <div className="w-full lg:w-1/2 relative group">
-              <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl scale-95 group-hover:scale-100 transition-transform duration-1000">
-                 <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" alt="Tech Lab" className="w-full h-full object-cover grayscale opacity-80 hover:opacity-100 transition-all" />
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 items-center">
+            
+            <div className="w-full lg:w-1/2 order-2 lg:order-1 text-center lg:text-left">
+              <div className="flex items-center justify-center lg:justify-start gap-2 sm:gap-3 mb-6 sm:mb-8">
+                <div className="w-6 sm:w-8 h-[2px] bg-[#10b9bd]"></div>
+                <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-[#10b9bd]">Clinical Authority</span>
               </div>
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#10b9bd] rounded-full blur-[120px] -z-10 opacity-20"></div>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-6 sm:mb-8 leading-[1] sm:leading-[1.05] text-[#0f172a]">
+                Precision Care. <br className="hidden sm:block" />
+                <span className="text-slate-300">No Guesswork.</span>
+              </h2>
+              <div className="space-y-4 sm:space-y-6 text-slate-500 text-sm sm:text-base md:text-lg leading-relaxed font-medium max-w-2xl mx-auto lg:mx-0">
+                <p>We treat weight resistance as a <strong className="text-[#0f172a] border-b-2 border-[#10b9bd]/30 pb-0.5">biological dysfunction</strong>, not a lack of willpower. Led by Dr. Abubakar Khan, our protocols are engineered to solve Insulin Resistance and Hormonal Imbalance at their root.</p>
+                <p>This is not a temporary diet plan. This is a complete metabolic reset utilizing the latest advancements in clinical nutrition and science-backed pharmacotherapy.</p>
+              </div>
+              <Link to="/about" className="group inline-flex items-center gap-3 mt-8 sm:mt-10 font-black text-[10px] sm:text-xs uppercase tracking-widest text-[#0f172a] hover:text-[#10b9bd] transition-colors">
+                Read Our Methodology 
+                <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-[#10b9bd]/10 transition-colors">
+                  <svg className="w-3 sm:w-4 h-3 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </div>
+              </Link>
+            </div>
+
+            <div className="w-full lg:w-1/2 relative group order-1 lg:order-2 px-4 sm:px-0">
+              <div className="relative z-10 rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-20px_rgba(0,0,0,0.2)] aspect-[4/3] lg:aspect-auto lg:h-[600px]">
+                 <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" alt="Tech Lab" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000" />
+                 <div className="absolute inset-0 bg-[#0f172a]/10 group-hover:bg-transparent transition-colors duration-500"></div>
+              </div>
+              {/* Decorative Accent Pattern */}
+              <div className="absolute -bottom-4 sm:-bottom-8 -right-4 sm:-right-8 w-24 sm:w-40 h-24 sm:h-40 bg-[radial-gradient(#10b9bd_2px,transparent_0)] [background-size:12px_12px] sm:[background-size:16px_16px] opacity-30 -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-700 hidden sm:block"></div>
             </div>
             
-            <div className="w-full lg:w-1/2">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-0.5 bg-[#10b9bd]"></div>
-                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#10b9bd]">Clinical Authority</span>
-              </div>
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-10 leading-[0.95]">Precision Care. <br/><span className="text-slate-300">No Character Flaws.</span></h2>
-              <div className="space-y-8 text-slate-500 text-xl leading-relaxed font-medium max-w-xl">
-                <p>We treat obesity as a <strong>biological dysfunction</strong>, not a lack of willpower. Led by Dr. Abubakar Khan, our protocols are engineered to solve Insulin Resistance and Hormonal Imbalance.</p>
-                <p>This is not a diet. This is a complete metabolic reset using the latest in clinical nutrition and pharmacotherapy.</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ================= CORE PROGRAMS ================= */}
-      <section className="py-40 px-6 bg-[#0f172a] text-white rounded-[4rem] lg:mx-6">
+      {/* ================= CORE PROGRAMS CARDS ================= */}
+      <section className="py-20 sm:py-32 px-4 sm:px-6 bg-[#f8fafc] border-t border-slate-100">
         <div className="container mx-auto max-w-7xl">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-10">
-            <div className="max-w-2xl">
-              <p className="text-[#10b9bd] font-black uppercase tracking-[0.6em] text-[10px] mb-6">The Lab</p>
-              <h3 className="text-5xl md:text-7xl font-black tracking-tighter leading-none">Standardized <br/>Optimization.</h3>
-            </div>
-            <Link to="/services" className="px-10 py-5 border border-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-[#0f172a] transition-all">All Protocols</Link>
+          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+            <p className="text-[#10b9bd] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[9px] sm:text-[10px] mb-3 sm:mb-4">Core Protocols</p>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-[#0f172a]">Standardized <br className="hidden sm:block"/>Optimization.</h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
-              { title: "Metabolic Nutrition", desc: "Targeted macronutrient engineering to force lipid oxidation.", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
-              { title: "Pharmacotherapy", desc: "FDA-approved biological intervention for appetite regulation.", icon: "M19.428 15.428a2 2 0 00-1.022-.547" },
-              { title: "Bariatric Care", desc: "Pre and post-operative clinical management for severe obesity.", icon: "M9 12l2 2 4-4" }
+              { title: "Metabolic Nutrition", desc: "Targeted macronutrient engineering to force lipid oxidation and stabilize insulin spikes safely.", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+              { title: "Pharmacotherapy", desc: "FDA-approved biological intervention for appetite regulation and metabolic control.", icon: "M19.428 15.428a2 2 0 00-1.022-.547" },
+              { title: "Bariatric Care", desc: "Comprehensive pre and post-operative clinical management for severe obesity cases.", icon: "M9 12l2 2 4-4" }
             ].map((p, i) => (
-              <div key={i} className="p-12 rounded-[3rem] border border-slate-800 hover:bg-[#1e293b] transition-all group">
-                <div className="w-16 h-16 bg-[#10b9bd] rounded-2xl mb-10 flex items-center justify-center text-[#0f172a] group-hover:scale-110 transition-transform">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path d={p.icon} strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <div key={i} className="bg-white p-8 sm:p-10 lg:p-12 rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-[0_20px_50px_-15px_rgba(16,185,189,0.15)] hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full cursor-pointer">
+                <div className="w-14 sm:w-16 h-14 sm:h-16 bg-slate-50 text-[#0f172a] rounded-xl sm:rounded-2xl mb-6 sm:mb-8 flex items-center justify-center group-hover:bg-[#10b9bd] group-hover:text-white transition-colors duration-500 shadow-sm">
+                  <svg className="w-6 sm:w-7 h-6 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5"><path d={p.icon} strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </div>
-                <h4 className="text-2xl font-black mb-4 uppercase tracking-tight">{p.title}</h4>
-                <p className="text-slate-500 leading-relaxed font-medium mb-10">{p.desc}</p>
-                <Link to="/services" className="text-[10px] font-black uppercase tracking-[0.3em] text-[#10b9bd] hover:text-white transition-colors">Integrate →</Link>
+                <h4 className="text-xl sm:text-2xl font-black mb-3 sm:mb-4 text-[#0f172a] tracking-tight">{p.title}</h4>
+                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed font-medium mb-8 sm:mb-10 flex-grow">{p.desc}</p>
+                <Link to="/services" className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-300 group-hover:text-[#10b9bd] transition-colors mt-auto flex items-center gap-2">
+                  View Protocol <svg className="w-3 sm:w-4 h-3 sm:h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ================= PINNACLE FAQ & CLINICAL INTAKE ================= */}
-      <section className="py-40 px-6 max-w-4xl mx-auto">
-        <div className="text-center mb-24 space-y-4">
-          <h3 className="text-[10px] font-black uppercase tracking-[0.8em] text-slate-300">Support / FAQ</h3>
-          <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-[#0f172a]">Common Queries.</h2>
+      {/* ================= PINNACLE FAQ ================= */}
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 max-w-3xl mx-auto">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-24">
+          <p className="text-[#10b9bd] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[9px] sm:text-[10px] mb-3 sm:mb-4">Knowledge Base</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-[#0f172a]">Common Queries.</h2>
         </div>
         
-        <div className="space-y-6">
+        <div className="space-y-3 sm:space-y-4">
           {[
-            { 
-              q: "Is this medically supervised?", 
-              a: "Every protocol is managed directly by Board Certified specialists. We monitor blood biomarkers and hormonal profiles throughout to ensure absolute clinical safety." 
-            },
-            { 
-              q: "How fast are the results?", 
-              a: "Biological optimization begins within 48 hours. Visible physical transformation and significant metabolic shifts typically scale after 14 days of strict adherence." 
-            },
-            { 
-              q: "Do you treat PCOD and Thyroid issues?", 
-              a: "Yes. Our specialty lies in managing metabolic weight gain caused by hormonal imbalances like PCOD, Hypothyroidism, and Insulin Resistance using FDA-approved clinical paths." 
-            },
-            { 
-              q: "Is the weight loss permanent?", 
-              a: "Our goal is 'Metabolic Set-Point' shifting. By correcting the root hormonal cause, we help your body maintain its new weight without the typical 'yo-yo' effect of crash diets." 
-            },
-            { 
-              q: "Can I consult online (Tele-Medicine)?", 
-              a: "We offer secure, end-to-end encrypted video consultations for patients globally, providing the same level of diagnostic precision as our physical clinic." 
-            }
+            { q: "Is this medically supervised?", a: "Every protocol is managed directly by Board Certified specialists. We monitor blood biomarkers and hormonal profiles throughout to ensure absolute clinical safety." },
+            { q: "How fast are the results?", a: "Biological optimization begins within 48 hours. Visible physical transformation and significant metabolic shifts typically scale after 14 days of strict adherence." },
+            { q: "Do you treat PCOD and Thyroid issues?", a: "Yes. Our specialty lies in managing metabolic weight gain caused by hormonal imbalances like PCOD, Hypothyroidism, and Insulin Resistance." },
+            { q: "Is the weight loss permanent?", a: "Our goal is 'Metabolic Set-Point' shifting. By correcting the root hormonal cause, we help your body maintain its new weight naturally without crash dieting." }
           ].map((f, i) => (
-            <details key={i} className="group bg-[#f8fafc] rounded-[2.5rem] border border-transparent hover:border-slate-200 transition-all duration-700 overflow-hidden">
-              <summary className="list-none p-10 flex items-center justify-between cursor-pointer focus:outline-none">
-                <span className="text-lg font-black uppercase tracking-tight text-[#0f172a]">{f.q}</span>
-                <div className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-[#10b9bd] group-open:rotate-45 group-open:bg-[#0f172a] group-open:text-white transition-all duration-700 shadow-sm">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6v12m6-6H6" strokeWidth="2.5" strokeLinecap="round"/></svg>
-                </div>
+            <details key={i} className="group bg-white rounded-2xl sm:rounded-3xl border border-slate-100 hover:border-[#10b9bd]/50 hover:shadow-md transition-all duration-300 overflow-hidden">
+              <summary className="list-none p-5 sm:p-6 md:p-8 flex items-center justify-between cursor-pointer focus:outline-none select-none">
+                <span className="text-sm sm:text-base font-bold text-[#0f172a] pr-4">{f.q}</span>
+                <span className="flex-shrink-0 w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-slate-50 flex items-center justify-center text-[#10b9bd] group-open:bg-[#0f172a] group-open:text-white transition-colors duration-300">
+                  <svg className="w-3 sm:w-4 h-3 sm:h-4 transform group-open:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
               </summary>
-              <div className="px-10 pb-10 text-slate-500 font-medium leading-relaxed text-lg animate-in fade-in slide-in-from-top-4 duration-700">
+              <div className="px-5 sm:px-6 md:px-8 pb-6 sm:pb-8 text-slate-500 text-xs sm:text-sm leading-relaxed border-t border-slate-50 pt-3 sm:pt-4 mt-1 sm:mt-2">
                 {f.a}
               </div>
             </details>
           ))}
         </div>
+      </section>
 
-        <div className="mt-32 text-center">
-          <Link 
-            to="/book-appointment" 
-            className="group relative inline-flex items-center justify-center px-16 py-9 rounded-full border border-slate-200 bg-white overflow-hidden transition-all duration-1000 hover:border-[#0f172a] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] active:scale-95"
-          >
-            <div className="absolute inset-0 top-full bg-[#0f172a] transition-all duration-[600ms] ease-[cubic-bezier(0.85,0,0.15,1)] group-hover:top-0"></div>
-            
-            <div className="relative flex items-center gap-8">
-              <span className="text-[11px] font-black uppercase tracking-[0.6em] text-[#0f172a] group-hover:text-white transition-colors duration-500">
-                Begin Clinical Intake
-              </span>
-              
-              <div className="relative flex items-center justify-center">
-                <svg 
-                  className="w-5 h-5 text-[#0f172a] group-hover:text-white group-hover:translate-x-2 transition-all duration-500 ease-out" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </div>
-            </div>
-          </Link>
-          
-          <div className="mt-12 flex items-center justify-center gap-6 opacity-30">
-             <div className="w-12 h-px bg-slate-400"></div>
-             <p className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-500">Protocol v4.0</p>
-             <div className="w-12 h-px bg-slate-400"></div>
+      {/* ================= FINAL CALL TO ACTION (Ultra Clean) ================= */}
+      <section className="py-24 sm:py-32 px-4 sm:px-6 bg-[#0f172a] text-white mx-4 sm:mx-6 md:mx-8 mb-6 sm:mb-8 rounded-[2rem] sm:rounded-[3rem] shadow-2xl relative overflow-hidden text-center group">
+        {/* Subtle geometric animated background */}
+        <div className="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')] group-hover:scale-105 transition-transform duration-1000"></div>
+        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-[#10b9bd]/20 via-transparent to-transparent opacity-80"></div>
+        
+        <div className="container mx-auto max-w-3xl relative z-10 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 mb-6 sm:mb-8">
+            <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#10b9bd] animate-ping"></div>
+            <p className="text-[#10b9bd] font-black uppercase tracking-[0.4em] sm:tracking-[0.5em] text-[8px] sm:text-[10px]">Ready to Start?</p>
           </div>
+          
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter leading-[1.1] sm:leading-none mb-10 sm:mb-12">
+            Initiate Your <br className="hidden sm:block"/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">Biological Shift.</span>
+          </h2>
+          
+          <Link to="/book-appointment" className="relative overflow-hidden group/btn bg-white text-[#0f172a] px-8 sm:px-12 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(16,185,189,0.3)] transition-all duration-300 active:scale-95 flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center">
+              <span className="relative z-10 group-hover/btn:text-white transition-colors duration-300">Reserve Diagnostic</span>
+              <svg className="w-3 sm:w-4 h-3 sm:h-4 relative z-10 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              {/* Button Hover Fill Effect */}
+              <div className="absolute inset-0 h-full w-0 bg-[#10b9bd] transition-all duration-300 ease-out group-hover/btn:w-full z-0"></div>
+          </Link>
         </div>
       </section>
+
     </div>
   );
 };
