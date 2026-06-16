@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -11,8 +12,9 @@ import Terms from './pages/Term';
 import CookiePolicy from './pages/CookiePolicy';
 import ScrollToTop from './components/ScrollToTop';
 import Assessment from './pages/Assessment';
-import FloatingNode from './components/FloatingNode'; // <-- Naya component yahan import kiya hai
+import FloatingNode from './components/FloatingNode';
 import Journal from './pages/Journal';
+import PageWrapper from './components/PageWrapper'; // <-- Naya wrapper import kiya hai
 
 function App() {
   const location = useLocation();
@@ -31,18 +33,28 @@ function App() {
           Agar user /apply page par hai toh humein extra padding ki zaroorat nahi hai.
       */}
       <main className={`flex-grow ${isAssessmentPage ? '' : 'pt-24 lg:pt-32'}`}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/transformations" element={<Transformations />} />
-          <Route path="/book-appointment" element={<Booking />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/cookie-policy" element={<CookiePolicy />} />
-          <Route path="/apply" element={<Assessment />} />
-          <Route path="/journal" element={<Journal />} />
-        </Routes>
+        
+        {/* AnimatePresence framer-motion ko allow karta hai ki wo page leave/enter animations handle kare */}
+        <AnimatePresence mode="wait">
+          {/* CRITICAL: Routes ko location aur key dena zaroori hai animation detect karne ke liye */}
+          <Routes location={location} key={location.pathname}>
+            
+            {/* Saare main routes ko PageWrapper ke andar daal diya gaya hai */}
+            <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+            <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
+            <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
+            <Route path="/transformations" element={<PageWrapper><Transformations /></PageWrapper>} />
+            <Route path="/book-appointment" element={<PageWrapper><Booking /></PageWrapper>} />
+            <Route path="/privacy-policy" element={<PageWrapper><PrivacyPolicy /></PageWrapper>} />
+            <Route path="/terms" element={<PageWrapper><Terms /></PageWrapper>} />
+            <Route path="/cookie-policy" element={<PageWrapper><CookiePolicy /></PageWrapper>} />
+            <Route path="/journal" element={<PageWrapper><Journal /></PageWrapper>} />
+            
+            {/* Assessment page khud mein ek full-screen overlay hai, usko wrapper ki zaroorat nahi hai */}
+            <Route path="/apply" element={<Assessment />} />
+            
+          </Routes>
+        </AnimatePresence>
       </main>
 
       {/* ================= CRITICAL FIX ================= */}
