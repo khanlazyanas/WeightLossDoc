@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -11,18 +11,25 @@ import Terms from './pages/Term';
 import CookiePolicy from './pages/CookiePolicy';
 import ScrollToTop from './components/ScrollToTop';
 import Assessment from './pages/Assessment';
+import FloatingNode from './components/FloatingNode'; // <-- Naya component yahan import kiya hai
 
 function App() {
+  const location = useLocation();
+  
+  // Check kar rahe hain ki kya user Assessment (Candidacy Quiz) wale page par hai
+  const isAssessmentPage = location.pathname === '/apply';
+
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans text-slate-800">
       <ScrollToTop />
+      
+      {/* Header ke andar humne already logic lagaya hua hai isko hide karne ka */}
       <Header />
       
-      {/* Yahan 'pt-24' (padding-top) add kiya gaya hai. 
-          Ye padding content ko Header ke neeche se shuru karegi taaki 
-          pages header ke andar na dhassein.
+      {/* Yahan conditional padding lagayi hai. 
+          Agar user /apply page par hai toh humein extra padding ki zaroorat nahi hai.
       */}
-      <main className="flex-grow pt-24 lg:pt-32">
+      <main className={`flex-grow ${isAssessmentPage ? '' : 'pt-24 lg:pt-32'}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -36,7 +43,15 @@ function App() {
         </Routes>
       </main>
 
-      <Footer />
+      {/* ================= CRITICAL FIX ================= */}
+      {/* FloatingNode aur Footer sirf tabhi dikhenge jab user /apply page par NAHI hoga */}
+      {!isAssessmentPage && (
+        <>
+          <FloatingNode />
+          <Footer />
+        </>
+      )}
+      
     </div>
   );
 }
