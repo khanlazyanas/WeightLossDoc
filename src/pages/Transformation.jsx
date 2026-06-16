@@ -264,7 +264,7 @@ const Transformations = () => {
   };
 
   return (
-    <div className="font-sans text-[#0f172a] bg-white selection:bg-[#10b9bd] selection:text-white relative min-h-screen">
+    <div className="font-sans text-[#0f172a] bg-[#fafafa] selection:bg-[#10b9bd] selection:text-white relative min-h-screen">
       
       <Toaster />
 
@@ -272,27 +272,30 @@ const Transformations = () => {
       {showGatekeeper && <DoctorGatekeeperModal onClose={() => setShowGatekeeper(false)} onUnlock={handleSuccessfulUnlock} />}
       {isAddModalOpen && <AddTransformationModal onClose={() => setIsAddModalOpen(false)} onRefresh={fetchTransformations} API_URL={API_BASE_URL} />}
 
-      {/* ================= PINNACLE BANNER ================= */}
-      <section className="relative pt-24 md:pt-32 pb-24 md:pb-40 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-[#f8fafc] via-white to-white">
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)', backgroundSize: '64px 64px' }}></div>
-        <div className="absolute top-[-10%] left-[-10%] md:top-[-20%] w-[30rem] md:w-[50rem] h-[30rem] md:h-[50rem] bg-[#10b9bd]/10 rounded-full blur-[100px] md:blur-[150px] pointer-events-none"></div>
+      {/* Global Ambient Background */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
+        <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-gradient-to-tr from-[#10b9bd]/10 to-transparent rounded-full blur-[120px]"></div>
+        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)', backgroundSize: '4rem 4rem' }}></div>
+      </div>
 
+      {/* ================= PINNACLE BANNER ================= */}
+      <section className="relative pt-32 md:pt-40 pb-24 md:pb-32 px-4 sm:px-6">
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
             <div className="max-w-3xl lg:max-w-4xl">
-              <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-sm border border-slate-200/60 text-[#0f172a] px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-8 sm:mb-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+              <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/60 backdrop-blur-md border border-slate-200/60 text-[#0f172a] px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-8 sm:mb-10 shadow-sm">
                 <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#10b9bd] animate-pulse"></span>
                 The Transformation Lab
               </div>
               
               <h1 className="text-5xl sm:text-7xl md:text-[6.5rem] lg:text-[7.5rem] font-black tracking-tighter leading-[0.95] mb-6 sm:mb-8">
-                Biometric <br/>
+                Biometric <br className="hidden sm:block"/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0f172a] via-[#334155] to-[#10b9bd] pr-2">
                   Proof.
                 </span>
               </h1>
               
-              <p className="text-lg sm:text-xl md:text-2xl text-slate-500 font-medium max-w-2xl leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl text-slate-500 font-medium max-w-2xl leading-relaxed mx-auto md:mx-0">
                 We don't believe in stories. We believe in immutable data. Explore our archive of clinical metabolic resets.
               </p>
             </div>
@@ -307,10 +310,146 @@ const Transformations = () => {
         </div>
       </section>
 
-      {/* ================= CLINICAL TRANSFORMATIONS GRID ================= */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 min-h-[50vh] bg-white relative">
+      {/* ================= CLINICAL VIDEO EVIDENCE ================= */}
+      <section className="py-20 md:py-32 px-4 sm:px-6 bg-[#0f172a] relative z-10 rounded-t-[3rem] sm:rounded-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.15)] overflow-hidden mx-2 sm:mx-6 md:mx-8">
+        {/* Dark Mode Mesh */}
+        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+        
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <div className="text-center mb-16 sm:mb-20">
+            <p className="text-[#10b9bd] font-black uppercase tracking-[0.4em] sm:tracking-[0.5em] text-[9px] sm:text-[10px] mb-3">Video Archives</p>
+            <h3 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter text-white">Patient Terminals.</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+            
+            {/* Video Card 1 */}
+            <div className="group relative w-full aspect-video bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-700/50 cursor-pointer">
+               {/* Replace src with actual patient video thumbnail */}
+               <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000" alt="Patient Video" className="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-50 transition-all duration-700" />
+               <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/20 to-transparent opacity-90"></div>
+               
+               {/* Play Button Overlay */}
+               <div className="absolute inset-0 flex items-center justify-center">
+                 <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#10b9bd] group-hover:border-[#10b9bd] transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_40px_rgba(16,185,189,0.5)]">
+                    <svg className="w-6 sm:w-8 h-6 sm:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                 </div>
+               </div>
+
+               <div className="absolute bottom-6 left-6 right-6">
+                 <div className="flex items-center gap-3 mb-3">
+                   <span className="bg-[#10b9bd] text-[#0f172a] px-3 py-1.5 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-widest">-24 KG (6 Months)</span>
+                 </div>
+                 <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight">"The insulin resistance protocol changed my life."</h4>
+               </div>
+            </div>
+
+            {/* Video Card 2 */}
+            <div className="group relative w-full aspect-video bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-700/50 cursor-pointer">
+               <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1000" alt="Patient Video" className="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-50 transition-all duration-700" />
+               <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/20 to-transparent opacity-90"></div>
+               
+               {/* Play Button Overlay */}
+               <div className="absolute inset-0 flex items-center justify-center">
+                 <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#10b9bd] group-hover:border-[#10b9bd] transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_40px_rgba(16,185,189,0.5)]">
+                    <svg className="w-6 sm:w-8 h-6 sm:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                 </div>
+               </div>
+
+               <div className="absolute bottom-6 left-6 right-6">
+                 <div className="flex items-center gap-3 mb-3">
+                   <span className="bg-[#10b9bd] text-[#0f172a] px-3 py-1.5 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-widest">-18 KG (4 Months)</span>
+                 </div>
+                 <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight">"Finally reversed my PCOS weight gain naturally."</h4>
+               </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ================= BEFORE / AFTER PHOTOGRAPHIC DATA ================= */}
+      <section className="py-20 md:py-32 px-4 sm:px-6 relative z-10">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-16 sm:mb-20">
+            <div>
+              <p className="text-[#10b9bd] font-black uppercase tracking-[0.4em] sm:tracking-[0.5em] text-[9px] sm:text-[10px] mb-3">Photographic Evidence</p>
+              <h3 className="text-4xl sm:text-5xl font-black tracking-tighter text-[#0f172a] leading-none">Clinical Results.</h3>
+            </div>
+            <Link to="/apply" className="group inline-flex items-center gap-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-[#0f172a] hover:text-[#10b9bd] transition-colors border-b-2 border-transparent hover:border-[#10b9bd] pb-1">
+              Start Your Optimization <svg className="w-3 sm:w-4 h-3 sm:h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+            
+            {/* Static Photo Card 1 */}
+            <div className="bg-white rounded-[2.5rem] border border-slate-200 p-5 shadow-sm hover:shadow-xl transition-all duration-500 group">
+              <div className="flex gap-3 mb-6 h-64 sm:h-72">
+                <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute top-3 left-3 bg-[#0f172a]/70 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest border border-white/20">Initial Marker</div>
+                </div>
+                <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute top-3 right-3 bg-[#10b9bd]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest shadow-md">Optimized</div>
+                </div>
+              </div>
+              <div className="text-center pb-2">
+                <h4 className="text-xl font-black tracking-tighter text-[#0f172a] mb-1">Patient #8042</h4>
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">-32 KG • HbA1c Normalized</p>
+              </div>
+            </div>
+
+            {/* Static Photo Card 2 */}
+            <div className="bg-white rounded-[2.5rem] border border-slate-200 p-5 shadow-sm hover:shadow-xl transition-all duration-500 group">
+              <div className="flex gap-3 mb-6 h-64 sm:h-72">
+                <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1522845015757-50bce044e5da?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute top-3 left-3 bg-[#0f172a]/70 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest border border-white/20">Initial Marker</div>
+                </div>
+                <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute top-3 right-3 bg-[#10b9bd]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest shadow-md">Optimized</div>
+                </div>
+              </div>
+              <div className="text-center pb-2">
+                <h4 className="text-xl font-black tracking-tighter text-[#0f172a] mb-1">Patient #9105</h4>
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">-21 KG • Hormones Balanced</p>
+              </div>
+            </div>
+
+            {/* Static Photo Card 3 */}
+            <div className="bg-white rounded-[2.5rem] border border-slate-200 p-5 shadow-sm hover:shadow-xl transition-all duration-500 group">
+              <div className="flex gap-3 mb-6 h-64 sm:h-72">
+                <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute top-3 left-3 bg-[#0f172a]/70 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest border border-white/20">Initial Marker</div>
+                </div>
+                <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute top-3 right-3 bg-[#10b9bd]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest shadow-md">Optimized</div>
+                </div>
+              </div>
+              <div className="text-center pb-2">
+                <h4 className="text-xl font-black tracking-tighter text-[#0f172a] mb-1">Patient #1024</h4>
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">-40 KG • Post-Bariatric Control</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ================= DYNAMIC CLINICAL TRANSFORMATIONS GRID (FROM BACKEND) ================= */}
+      <section className="pb-20 md:pb-32 px-4 sm:px-6 relative z-10 border-t border-slate-100 pt-20">
         <div className="container mx-auto max-w-7xl relative">
           
+          <div className="text-center mb-16">
+            <h3 className="text-3xl sm:text-4xl font-black tracking-tighter text-[#0f172a]">Live Clinical Archive.</h3>
+            <p className="text-slate-500 text-sm mt-3">Verified metabolic data streaming securely from the WeightLossDoc backend.</p>
+          </div>
+
           {isLoading ? (
             // Premium Loading Skeletons
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24">
@@ -331,12 +470,12 @@ const Transformations = () => {
                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
               </div>
               <div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#0f172a] mb-2">No Visual Data Yet</h3>
-                <p className="text-slate-400 text-sm font-medium">The transformation archive is currently empty.</p>
+                <h3 className="text-xl sm:text-2xl font-black text-[#0f172a] mb-2">No Live Data Yet</h3>
+                <p className="text-slate-400 text-sm font-medium">The dynamic transformation archive is currently awaiting data sync.</p>
               </div>
             </div>
           ) : (
-            // Ultra-Premium Data Grid
+            // Ultra-Premium Dynamic Data Grid
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 sm:gap-20 lg:gap-24 relative z-10">
               {successStories.map((story) => (
                 <div key={story._id} className="group space-y-8 sm:space-y-10">
@@ -391,7 +530,6 @@ const Transformations = () => {
 
       {/* ================= FINAL CALL TO ACTION (Ultra Clean) ================= */}
       <section className="py-24 sm:py-32 px-4 sm:px-6 bg-[#0f172a] text-white mx-4 sm:mx-6 md:mx-8 mb-6 sm:mb-8 rounded-[2rem] sm:rounded-[3rem] shadow-2xl relative overflow-hidden text-center group">
-        {/* Subtle geometric animated background */}
         <div className="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')] group-hover:scale-105 transition-transform duration-1000"></div>
         <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-[#10b9bd]/20 via-transparent to-transparent opacity-80"></div>
         
@@ -406,7 +544,7 @@ const Transformations = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">Biological Shift.</span>
           </h2>
           
-          <Link to="/book-appointment" className="relative overflow-hidden group/btn bg-white text-[#0f172a] px-8 sm:px-12 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(16,185,189,0.3)] transition-all duration-300 active:scale-95 flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center">
+          <Link to="/apply" className="relative overflow-hidden group/btn bg-white text-[#0f172a] px-8 sm:px-12 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(16,185,189,0.3)] transition-all duration-300 active:scale-95 flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center">
               <span className="relative z-10 group-hover/btn:text-white transition-colors duration-300">Reserve Diagnostic</span>
               <svg className="w-3 sm:w-4 h-3 sm:h-4 relative z-10 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               <div className="absolute inset-0 h-full w-0 bg-[#10b9bd] transition-all duration-300 ease-out group-hover/btn:w-full z-0"></div>

@@ -55,7 +55,7 @@ const Home = () => {
       </div>
 
       {/* ================= ULTRA PREMIUM HERO SECTION ================= */}
-      <section className="relative pt-24 md:pt-32 pb-24 md:pb-40 px-4 sm:px-6">
+      <section className="relative pt-24 md:pt-32 pb-24 md:pb-32 px-4 sm:px-6">
         
         {/* Ambient Clinical Glow */}
         <div className="absolute top-[-10%] left-[-10%] md:top-[-20%] w-[30rem] md:w-[50rem] h-[30rem] md:h-[50rem] bg-gradient-to-br from-[#10b9bd]/15 to-transparent rounded-full blur-[100px] md:blur-[150px] pointer-events-none -z-10"></div>
@@ -129,6 +129,22 @@ const Home = () => {
                </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ================= CLINICAL AFFILIATIONS & PRESS (NEW ADDITION) ================= */}
+      <section className="py-8 sm:py-10 bg-white border-y border-slate-100 overflow-hidden relative z-10 shadow-[0_5px_15px_-10px_rgba(0,0,0,0.05)]">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="text-center text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 sm:mb-8">
+            Clinical Affiliations & Media Recognition
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-10 sm:gap-16 md:gap-24 opacity-60 grayscale">
+            <div className="text-lg sm:text-xl font-black tracking-tighter text-slate-800 hover:text-[#10b9bd] hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">APOLLO CLINIC</div>
+            <div className="text-lg sm:text-xl font-black tracking-widest text-slate-800 hover:text-[#10b9bd] hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">MEDANTA</div>
+            <div className="text-lg sm:text-xl font-bold font-serif text-slate-800 hover:text-[#10b9bd] hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">The Health Times</div>
+            <div className="text-lg sm:text-xl font-black tracking-tighter text-slate-800 hover:text-[#10b9bd] hover:grayscale-0 hover:opacity-100 transition-all duration-300 uppercase cursor-default">Fortis</div>
+            <div className="text-lg sm:text-xl font-black tracking-widest text-slate-800 hover:text-[#10b9bd] hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">PRACTO</div>
           </div>
         </div>
       </section>
