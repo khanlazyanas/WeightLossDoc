@@ -10,6 +10,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Term';
 import CookiePolicy from './pages/CookiePolicy';
 import ScrollToTop from './components/ScrollToTop';
+import Assessment from './pages/Assessment';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/cookie-policy" element={<CookiePolicy />} />
+          <Route path="/apply" element={<Assessment />} />
         </Routes>
       </main>
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// Image ko yahan import karein (Ensure the path is correct based on your folder structure)
 import DrAbubakarImg from '../assets/drabubakarkhan.png'; 
 
 const Home = () => {
@@ -48,43 +47,50 @@ const Home = () => {
   };
 
   return (
-    <div className="font-sans text-[#0f172a] bg-white selection:bg-[#10b9bd] selection:text-white">
+    <div className="font-sans text-[#0f172a] bg-[#fafafa] selection:bg-[#10b9bd] selection:text-white min-h-screen relative overflow-hidden">
       
+      {/* Global Ambient Background */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
+        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)', backgroundSize: '4rem 4rem' }}></div>
+      </div>
+
       {/* ================= ULTRA PREMIUM HERO SECTION ================= */}
-      <section className="relative pt-24 md:pt-32 pb-24 md:pb-40 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-[#f8fafc] via-white to-white">
-        {/* Subtle Architectural Grid */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)', backgroundSize: '64px 64px' }}></div>
+      <section className="relative pt-24 md:pt-32 pb-24 md:pb-40 px-4 sm:px-6">
         
         {/* Ambient Clinical Glow */}
-        <div className="absolute top-[-10%] left-[-10%] md:top-[-20%] w-[30rem] md:w-[50rem] h-[30rem] md:h-[50rem] bg-[#10b9bd]/10 rounded-full blur-[100px] md:blur-[150px] pointer-events-none"></div>
+        <div className="absolute top-[-10%] left-[-10%] md:top-[-20%] w-[30rem] md:w-[50rem] h-[30rem] md:h-[50rem] bg-gradient-to-br from-[#10b9bd]/15 to-transparent rounded-full blur-[100px] md:blur-[150px] pointer-events-none -z-10"></div>
 
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
             
             {/* Left Content */}
             <div className="w-full lg:w-3/5 text-center lg:text-left mt-8 lg:mt-0">
-              <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-sm border border-slate-200/60 text-[#0f172a] px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-8 sm:mb-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
-                <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#10b9bd] animate-pulse shadow-[0_0_10px_rgba(16,185,189,0.8)]"></span>
+              <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/60 backdrop-blur-md border border-slate-200/60 text-[#0f172a] px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-8 sm:mb-10 shadow-sm">
+                <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#10b9bd] animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
                 Next-Gen Metabolic Engineering
               </div>
 
-              <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] font-black tracking-[-0.04em] leading-[1] md:leading-[0.9] mb-6 sm:mb-8">
+              <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7.5rem] font-black tracking-tighter leading-[1] md:leading-[0.9] mb-6 sm:mb-8">
                 Forget Diets. <br className="hidden sm:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#10b9bd]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0f172a] via-[#334155] to-[#10b9bd] pr-2">
                   Fix Biology.
                 </span>
               </h1>
               
               <p className="text-lg sm:text-xl md:text-2xl text-slate-500 font-medium mb-10 sm:mb-12 max-w-xl md:max-w-2xl leading-relaxed mx-auto lg:mx-0">
-                Precision medicine and metabolic data applied to reverse obesity at the cellular level. <strong className="text-[#0f172a]">Private. Clinical. Guaranteed.</strong>
+                Precision medicine and metabolic data applied to reverse obesity at the cellular level. <strong className="text-[#0f172a] border-b border-slate-300 pb-0.5">Private. Clinical. Guaranteed.</strong>
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6">
-                <Link to="/book-appointment" className="w-full sm:w-auto text-center bg-[#0f172a] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-[#10b9bd] transition-all duration-500 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.5)] hover:shadow-[0_20px_40px_-15px_rgba(16,185,189,0.5)] hover:-translate-y-1">
-                  Start Evaluation
+                <Link to="/apply" className="group relative overflow-hidden w-full sm:w-auto text-center bg-[#0f172a] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-[0_20px_40px_-15px_rgba(15,23,42,0.5)] hover:shadow-[0_20px_40px_-15px_rgba(16,185,189,0.5)] active:scale-95 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#10b9bd] to-[#0ea5e9] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <span className="relative z-10 flex items-center justify-center gap-3">
+                    Apply For Evaluation
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </span>
                 </Link>
                 <Link to="/transformations" className="group flex items-center justify-center w-full sm:w-auto gap-3 sm:gap-4 py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl hover:bg-slate-50 transition-all duration-300">
-                   <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-lg sm:rounded-xl bg-white border border-slate-200 flex items-center justify-center group-hover:border-[#10b9bd] group-hover:shadow-md transition-all duration-300">
+                   <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-lg sm:rounded-xl bg-white border border-slate-200 flex items-center justify-center group-hover:border-[#10b9bd] group-hover:bg-[#10b9bd]/5 group-hover:shadow-md transition-all duration-300">
                       <svg className="w-4 sm:w-5 h-4 sm:h-5 text-[#0f172a] group-hover:text-[#10b9bd] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                    </div>
                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-[#0f172a] group-hover:text-[#10b9bd] transition-colors">The Data Lab</span>
@@ -93,31 +99,31 @@ const Home = () => {
             </div>
 
             {/* Right Image Section */}
-            <div className="w-full lg:w-2/5 relative mt-6 lg:mt-0 px-4 sm:px-0">
-               <div className="relative rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] border-[6px] sm:border-[8px] border-white aspect-[4/5] sm:aspect-square lg:aspect-[4/5] bg-slate-100 group mx-auto max-w-sm sm:max-w-none">
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-100 animate-pulse"></div>
+            <div className="w-full lg:w-2/5 relative mt-8 lg:mt-0 px-4 sm:px-0">
+               <div className="relative rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] border-[6px] sm:border-[12px] border-white aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] bg-slate-100 group mx-auto max-w-md sm:max-w-none">
+                  <div className="absolute inset-0 bg-slate-200 animate-pulse -z-10"></div>
                   <img 
                     src={DrAbubakarImg} 
                     alt="Dr. Abubakar Khan" 
-                    className="relative w-full h-full object-cover object-top z-10 transition-transform duration-1000 group-hover:scale-105"
+                    className="relative w-full h-full object-cover object-top z-10 grayscale opacity-90 group-hover:opacity-100 group-hover:grayscale-[20%] transition-all duration-1000 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/90 via-[#0f172a]/20 to-transparent z-20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/90 via-[#0f172a]/10 to-transparent z-20"></div>
                   
-                  <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 text-white z-30">
-                    <p className="text-2xl sm:text-3xl font-black tracking-tight mb-0.5 sm:mb-1">Dr. Abubakar Khan</p>
-                    <p className="text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em] text-[#10b9bd]">Chief Medical Officer</p>
+                  <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 text-white z-30">
+                    <p className="text-2xl sm:text-4xl font-black tracking-tighter mb-1 leading-none">Dr. Abubakar<br/>Khan</p>
+                    <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[#10b9bd] mt-2">Chief Medical Officer</p>
                   </div>
                </div>
                
                {/* Floating Glassmorphism Stats Badge */}
-               <div className="absolute -left-2 sm:-left-8 md:-left-12 top-10 sm:top-16 bg-white/85 backdrop-blur-xl p-3 sm:p-5 rounded-2xl sm:rounded-3xl shadow-[0_15px_30px_-5px_rgba(0,0,0,0.1)] border border-white/60 z-40 animate-[bounce_4s_ease-in-out_infinite]">
+               <div className="absolute -left-2 sm:-left-8 md:-left-12 top-10 sm:top-16 bg-white/85 backdrop-blur-xl p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] border border-white/60 z-40 animate-[bounce_4s_ease-in-out_infinite]">
                   <div className="flex items-center gap-3 sm:gap-4">
-                     <div className="w-8 sm:w-12 h-8 sm:h-12 rounded-xl sm:rounded-2xl bg-[#10b9bd]/10 flex items-center justify-center text-[#10b9bd]">
-                        <svg className="w-4 sm:w-6 h-4 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                     <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-[#10b9bd]/10 border border-[#10b9bd]/20 flex items-center justify-center text-[#10b9bd]">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                      </div>
                      <div>
-                        <p className="text-[7px] sm:text-[9px] font-black uppercase tracking-widest text-slate-500 mb-0.5">Bio-Mass Reduced</p>
-                        <p className="text-lg sm:text-2xl font-black tracking-tighter text-[#0f172a]">{counter.toLocaleString()} <span className="text-xs sm:text-sm font-bold text-slate-400">kg</span></p>
+                        <p className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-slate-500 mb-0.5 sm:mb-1">Bio-Mass Reduced</p>
+                        <p className="text-xl sm:text-3xl font-black tracking-tighter text-[#0f172a] leading-none">{counter.toLocaleString()} <span className="text-xs sm:text-sm font-bold text-slate-400">kg</span></p>
                      </div>
                   </div>
                </div>
@@ -128,19 +134,19 @@ const Home = () => {
       </section>
 
       {/* ================= INTERACTIVE CLINICAL DIAGNOSTIC (BMI) ================= */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 bg-white relative">
+      <section className="py-20 md:py-32 px-4 sm:px-6 relative z-10">
         <div className="container mx-auto max-w-6xl">
-           <div className="flex flex-col lg:flex-row bg-slate-50 rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-[0_15px_50px_-10px_rgba(0,0,0,0.05)] border border-slate-100/60">
+           <div className="flex flex-col lg:flex-row bg-white rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100">
              
              {/* Left Input Form */}
-             <div className="w-full lg:w-1/2 p-8 sm:p-12 lg:p-20 flex flex-col justify-center bg-white relative z-10">
+             <div className="w-full lg:w-1/2 p-8 sm:p-12 lg:p-20 flex flex-col justify-center relative z-10">
                <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                  <div className="w-6 sm:w-8 h-[2px] bg-[#10b9bd]"></div>
                  <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.4em] text-[#10b9bd]">Diagnostic Tool</span>
                </div>
-               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 sm:mb-4 text-[#0f172a]">Metabolic Baseline.</h2>
-               <p className="text-slate-500 text-xs sm:text-sm font-medium mb-8 sm:mb-12 leading-relaxed">
-                 Enter your current biological metrics to initiate a preliminary algorithmic metabolic assessment.
+               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tighter mb-3 sm:mb-4 text-[#0f172a] leading-[1.05]">Metabolic <br className="hidden sm:block"/>Baseline.</h2>
+               <p className="text-slate-500 text-xs sm:text-sm font-medium mb-8 sm:mb-12 leading-relaxed max-w-md">
+                 Enter your current biological metrics to initiate a preliminary algorithmic assessment of your metabolic state.
                </p>
 
                <form onSubmit={calculateBMI} className="space-y-6 sm:space-y-8">
@@ -154,16 +160,16 @@ const Home = () => {
                        <input type="number" required value={height} onChange={(e)=>setHeight(e.target.value)} className="w-full pt-1 sm:pt-2 text-3xl sm:text-4xl font-black outline-none bg-transparent text-[#0f172a] placeholder:text-slate-200 transition-all" placeholder="000" />
                      </div>
                   </div>
-                  <button type="submit" className="bg-white border-2 border-[#0f172a] text-[#0f172a] px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-[#0f172a] hover:text-white transition-all duration-300 w-full lg:w-auto shadow-sm hover:shadow-xl mt-4 sm:mt-0">
+                  <button type="submit" className="bg-white border-2 border-[#0f172a] text-[#0f172a] px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-[#0f172a] hover:text-white transition-all duration-300 w-full lg:w-auto shadow-sm hover:shadow-xl mt-4 sm:mt-0 active:scale-95">
                     Compute Analysis
                   </button>
                </form>
              </div>
 
              {/* Right Result Panel (Dynamic Colors) */}
-             <div className="w-full lg:w-1/2 bg-[#0f172a] p-8 sm:p-12 lg:p-20 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[300px] sm:min-h-[400px]">
+             <div className="w-full lg:w-1/2 bg-[#0f172a] p-8 sm:p-12 lg:p-20 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[350px] sm:min-h-[400px]">
                {/* Animated Background Mesh */}
-               <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#10b9bd]/20 via-[#0f172a] to-[#0f172a] opacity-60"></div>
+               <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#10b9bd]/20 via-[#0f172a] to-[#0f172a] opacity-80"></div>
                
                {!bmiResult ? (
                  <div className="text-slate-400 space-y-4 sm:space-y-6 relative z-10 flex flex-col items-center">
@@ -171,17 +177,17 @@ const Home = () => {
                     <p className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">Awaiting Telemetry</p>
                  </div>
                ) : (
-                 <div className="animate-in fade-in zoom-in-95 duration-500 relative z-10 flex flex-col items-center">
+                 <div className="animate-in fade-in zoom-in-95 duration-500 relative z-10 flex flex-col items-center w-full">
                     <p className="text-slate-400 text-[8px] sm:text-[10px] font-black uppercase tracking-[0.5em] mb-2 sm:mb-4">Assessment Complete</p>
-                    <h3 className={`text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-black leading-none mb-4 sm:mb-6 tracking-tighter ${bmiResult.colorClass} drop-shadow-lg`}>
+                    <h3 className={`text-6xl sm:text-7xl md:text-8xl lg:text-[8rem] font-black leading-none mb-4 sm:mb-6 tracking-tighter ${bmiResult.colorClass} drop-shadow-lg`}>
                       {bmiResult.value}
                     </h3>
-                    <div className="inline-block bg-slate-800/50 backdrop-blur-md px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-700/50 mb-6 sm:mb-10">
-                      <p className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${bmiResult.colorClass}`}>{bmiResult.status}</p>
+                    <div className="inline-block bg-slate-800/50 backdrop-blur-md px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-700/50 mb-8 sm:mb-10 w-full max-w-[80%]">
+                      <p className={`text-[10px] sm:text-xs font-black tracking-widest uppercase ${bmiResult.colorClass} truncate`}>{bmiResult.status}</p>
                     </div>
-                    <Link to="/book-appointment" className="group inline-flex items-center gap-2 text-white font-black text-[9px] sm:text-[10px] uppercase tracking-widest hover:text-[#10b9bd] transition-colors">
-                      Request Clinical Protocol 
-                      <svg className="w-3 sm:w-4 h-3 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    <Link to="/apply" className="group inline-flex items-center gap-2 text-white font-black text-[9px] sm:text-[10px] uppercase tracking-widest hover:text-[#10b9bd] transition-colors border-b border-transparent hover:border-[#10b9bd] pb-1">
+                      Start Qualification Protocol 
+                      <svg className="w-3 sm:w-4 h-3 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </Link>
                  </div>
                )}
@@ -212,7 +218,7 @@ const Home = () => {
       </section>
 
       {/* ================= THE SCIENCE SECTION (Ultra Clean) ================= */}
-      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-white">
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 relative z-10">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 items-center">
             
@@ -221,24 +227,25 @@ const Home = () => {
                 <div className="w-6 sm:w-8 h-[2px] bg-[#10b9bd]"></div>
                 <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-[#10b9bd]">Clinical Authority</span>
               </div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-6 sm:mb-8 leading-[1] sm:leading-[1.05] text-[#0f172a]">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 sm:mb-8 leading-[1] sm:leading-[0.95] text-[#0f172a]">
                 Precision Care. <br className="hidden sm:block" />
                 <span className="text-slate-300">No Guesswork.</span>
               </h2>
               <div className="space-y-4 sm:space-y-6 text-slate-500 text-sm sm:text-base md:text-lg leading-relaxed font-medium max-w-2xl mx-auto lg:mx-0">
-                <p>We treat weight resistance as a <strong className="text-[#0f172a] border-b-2 border-[#10b9bd]/30 pb-0.5">biological dysfunction</strong>, not a lack of willpower. Led by Dr. Abubakar Khan, our protocols are engineered to solve Insulin Resistance and Hormonal Imbalance at their root.</p>
+                <p>We treat weight resistance as a <strong className="text-[#0f172a] border-b border-[#10b9bd]/30 pb-0.5">biological dysfunction</strong>, not a lack of willpower. Led by Dr. Abubakar Khan, our protocols are meticulously engineered to solve Insulin Resistance and Hormonal Imbalance at their root.</p>
                 <p>This is not a temporary diet plan. This is a complete metabolic reset utilizing the latest advancements in clinical nutrition and science-backed pharmacotherapy.</p>
               </div>
               <Link to="/about" className="group inline-flex items-center gap-3 mt-8 sm:mt-10 font-black text-[10px] sm:text-xs uppercase tracking-widest text-[#0f172a] hover:text-[#10b9bd] transition-colors">
                 Read Our Methodology 
-                <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-[#10b9bd]/10 transition-colors">
+                <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center group-hover:bg-[#10b9bd]/10 group-hover:border-[#10b9bd]/30 transition-colors shadow-sm">
                   <svg className="w-3 sm:w-4 h-3 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </div>
               </Link>
             </div>
 
             <div className="w-full lg:w-1/2 relative group order-1 lg:order-2 px-4 sm:px-0">
-              <div className="relative z-10 rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-20px_rgba(0,0,0,0.2)] aspect-[4/3] lg:aspect-auto lg:h-[600px]">
+              <div className="relative z-10 rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-[0_20px_50px_-20px_rgba(0,0,0,0.2)] aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[600px] border-[6px] sm:border-[8px] border-white">
+                 <div className="absolute inset-0 bg-slate-200 animate-pulse -z-10"></div>
                  <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" alt="Tech Lab" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000" />
                  <div className="absolute inset-0 bg-[#0f172a]/10 group-hover:bg-transparent transition-colors duration-500"></div>
               </div>
@@ -251,11 +258,11 @@ const Home = () => {
       </section>
 
       {/* ================= CORE PROGRAMS CARDS ================= */}
-      <section className="py-20 sm:py-32 px-4 sm:px-6 bg-[#f8fafc] border-t border-slate-100">
+      <section className="py-24 sm:py-32 md:py-40 px-4 sm:px-6 bg-white border-t border-slate-100 rounded-t-[3rem] sm:rounded-t-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.02)] relative z-10">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
-            <p className="text-[#10b9bd] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[9px] sm:text-[10px] mb-3 sm:mb-4">Core Protocols</p>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-[#0f172a]">Standardized <br className="hidden sm:block"/>Optimization.</h3>
+          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-24 space-y-3 sm:space-y-4">
+            <p className="text-[#10b9bd] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-[9px] sm:text-[10px]">Core Protocols</p>
+            <h3 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter text-[#0f172a] leading-none">Standardized <br className="hidden sm:block"/>Optimization.</h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -264,14 +271,17 @@ const Home = () => {
               { title: "Pharmacotherapy", desc: "FDA-approved biological intervention for appetite regulation and metabolic control.", icon: "M19.428 15.428a2 2 0 00-1.022-.547" },
               { title: "Bariatric Care", desc: "Comprehensive pre and post-operative clinical management for severe obesity cases.", icon: "M9 12l2 2 4-4" }
             ].map((p, i) => (
-              <div key={i} className="bg-white p-8 sm:p-10 lg:p-12 rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-[0_20px_50px_-15px_rgba(16,185,189,0.15)] hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full cursor-pointer">
-                <div className="w-14 sm:w-16 h-14 sm:h-16 bg-slate-50 text-[#0f172a] rounded-xl sm:rounded-2xl mb-6 sm:mb-8 flex items-center justify-center group-hover:bg-[#10b9bd] group-hover:text-white transition-colors duration-500 shadow-sm">
-                  <svg className="w-6 sm:w-7 h-6 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5"><path d={p.icon} strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <div key={i} className="bg-[#f8fafc] p-8 sm:p-10 lg:p-12 rounded-[2rem] sm:rounded-[2.5rem] border border-slate-200/50 hover:bg-white shadow-sm hover:shadow-[0_20px_50px_-15px_rgba(16,185,189,0.15)] hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full cursor-pointer relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#10b9bd]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10">
+                  <div className="w-14 sm:w-16 h-14 sm:h-16 bg-white border border-slate-200 text-[#0f172a] rounded-2xl sm:rounded-[1.2rem] mb-6 sm:mb-8 flex items-center justify-center group-hover:bg-[#10b9bd] group-hover:text-white group-hover:border-[#10b9bd] transition-colors duration-500 shadow-sm">
+                    <svg className="w-6 sm:w-7 h-6 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5"><path d={p.icon} strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
+                  <h4 className="text-xl sm:text-2xl font-black mb-3 sm:mb-4 text-[#0f172a] tracking-tight">{p.title}</h4>
+                  <p className="text-slate-500 text-xs sm:text-sm leading-relaxed font-medium mb-8 sm:mb-10 flex-grow">{p.desc}</p>
                 </div>
-                <h4 className="text-xl sm:text-2xl font-black mb-3 sm:mb-4 text-[#0f172a] tracking-tight">{p.title}</h4>
-                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed font-medium mb-8 sm:mb-10 flex-grow">{p.desc}</p>
-                <Link to="/services" className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-300 group-hover:text-[#10b9bd] transition-colors mt-auto flex items-center gap-2">
-                  View Protocol <svg className="w-3 sm:w-4 h-3 sm:h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                <Link to="/services" className="relative z-10 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-[#10b9bd] transition-colors mt-auto flex items-center gap-2">
+                  View Protocol <svg className="w-3 sm:w-4 h-3 sm:h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </Link>
               </div>
             ))}
@@ -280,10 +290,10 @@ const Home = () => {
       </section>
 
       {/* ================= PINNACLE FAQ ================= */}
-      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 max-w-3xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16 lg:mb-24">
-          <p className="text-[#10b9bd] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[9px] sm:text-[10px] mb-3 sm:mb-4">Knowledge Base</p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-[#0f172a]">Common Queries.</h2>
+      <section className="py-20 sm:py-32 md:py-40 px-4 sm:px-6 max-w-3xl mx-auto relative z-10">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-24 space-y-3 sm:space-y-4">
+          <p className="text-[#10b9bd] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-[9px] sm:text-[10px]">Knowledge Base</p>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter text-[#0f172a]">Common Queries.</h2>
         </div>
         
         <div className="space-y-3 sm:space-y-4">
@@ -293,14 +303,14 @@ const Home = () => {
             { q: "Do you treat PCOD and Thyroid issues?", a: "Yes. Our specialty lies in managing metabolic weight gain caused by hormonal imbalances like PCOD, Hypothyroidism, and Insulin Resistance." },
             { q: "Is the weight loss permanent?", a: "Our goal is 'Metabolic Set-Point' shifting. By correcting the root hormonal cause, we help your body maintain its new weight naturally without crash dieting." }
           ].map((f, i) => (
-            <details key={i} className="group bg-white rounded-2xl sm:rounded-3xl border border-slate-100 hover:border-[#10b9bd]/50 hover:shadow-md transition-all duration-300 overflow-hidden">
+            <details key={i} className="group bg-white rounded-2xl sm:rounded-[2rem] border border-slate-200 hover:border-[#10b9bd]/50 hover:shadow-md transition-all duration-300 overflow-hidden">
               <summary className="list-none p-5 sm:p-6 md:p-8 flex items-center justify-between cursor-pointer focus:outline-none select-none">
-                <span className="text-sm sm:text-base font-bold text-[#0f172a] pr-4">{f.q}</span>
-                <span className="flex-shrink-0 w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-slate-50 flex items-center justify-center text-[#10b9bd] group-open:bg-[#0f172a] group-open:text-white transition-colors duration-300">
+                <span className="text-sm sm:text-base md:text-lg font-bold text-[#0f172a] pr-4">{f.q}</span>
+                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-[#10b9bd] group-open:bg-[#0f172a] group-open:text-white transition-colors duration-300 shadow-sm">
                   <svg className="w-3 sm:w-4 h-3 sm:h-4 transform group-open:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div className="px-5 sm:px-6 md:px-8 pb-6 sm:pb-8 text-slate-500 text-xs sm:text-sm leading-relaxed border-t border-slate-50 pt-3 sm:pt-4 mt-1 sm:mt-2">
+              <div className="px-5 sm:px-6 md:px-8 pb-6 sm:pb-8 text-slate-500 text-xs sm:text-sm md:text-base leading-relaxed border-t border-slate-50 pt-3 sm:pt-4 mt-1">
                 {f.a}
               </div>
             </details>
@@ -309,27 +319,27 @@ const Home = () => {
       </section>
 
       {/* ================= FINAL CALL TO ACTION (Ultra Clean) ================= */}
-      <section className="py-24 sm:py-32 px-4 sm:px-6 bg-[#0f172a] text-white mx-4 sm:mx-6 md:mx-8 mb-6 sm:mb-8 rounded-[2rem] sm:rounded-[3rem] shadow-2xl relative overflow-hidden text-center group">
+      <section className="py-24 sm:py-32 md:py-40 px-4 sm:px-6 bg-[#0f172a] text-white mx-4 sm:mx-6 md:mx-8 mb-6 sm:mb-8 rounded-[2.5rem] sm:rounded-[4rem] shadow-2xl relative overflow-hidden text-center group">
         {/* Subtle geometric animated background */}
-        <div className="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')] group-hover:scale-105 transition-transform duration-1000"></div>
-        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-[#10b9bd]/20 via-transparent to-transparent opacity-80"></div>
+        <div className="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')] group-hover:scale-105 transition-transform duration-[3000ms]"></div>
+        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-[#10b9bd]/20 via-transparent to-transparent opacity-80 pointer-events-none"></div>
         
-        <div className="container mx-auto max-w-3xl relative z-10 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 mb-6 sm:mb-8">
+        <div className="container mx-auto max-w-4xl relative z-10 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
             <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#10b9bd] animate-ping"></div>
-            <p className="text-[#10b9bd] font-black uppercase tracking-[0.4em] sm:tracking-[0.5em] text-[8px] sm:text-[10px]">Ready to Start?</p>
+            <p className="text-[#10b9bd] font-black uppercase tracking-[0.4em] sm:tracking-[0.5em] text-[8px] sm:text-[10px]">Take Action</p>
           </div>
           
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter leading-[1.1] sm:leading-none mb-10 sm:mb-12">
+          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[1.05] sm:leading-[0.95] mb-10 sm:mb-12">
             Initiate Your <br className="hidden sm:block"/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">Biological Shift.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">Biological Shift.</span>
           </h2>
           
-          <Link to="/book-appointment" className="relative overflow-hidden group/btn bg-white text-[#0f172a] px-8 sm:px-12 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(16,185,189,0.3)] transition-all duration-300 active:scale-95 flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center">
-              <span className="relative z-10 group-hover/btn:text-white transition-colors duration-300">Reserve Diagnostic</span>
-              <svg className="w-3 sm:w-4 h-3 sm:h-4 relative z-10 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <Link to="/apply" className="group relative overflow-hidden bg-white text-[#0f172a] px-10 sm:px-14 py-4 sm:py-6 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-widest shadow-[0_15px_30px_-10px_rgba(255,255,255,0.2)] hover:shadow-[0_20px_40px_-10px_rgba(16,185,189,0.4)] transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto">
+              <span className="relative z-10 group-hover:text-white transition-colors duration-300">Reserve Diagnostic</span>
+              <svg className="w-3 sm:w-4 h-3 sm:h-4 relative z-10 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               {/* Button Hover Fill Effect */}
-              <div className="absolute inset-0 h-full w-0 bg-[#10b9bd] transition-all duration-300 ease-out group-hover/btn:w-full z-0"></div>
+              <div className="absolute inset-0 h-full w-0 bg-[#10b9bd] transition-all duration-300 ease-out group-hover:w-full z-0"></div>
           </Link>
         </div>
       </section>
