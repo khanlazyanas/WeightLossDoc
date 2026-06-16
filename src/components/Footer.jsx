@@ -59,6 +59,7 @@ const Footer = () => {
               <li><Link to="/services" className="hover:text-white hover:tracking-[0.3em] transition-all duration-300">Protocols</Link></li>
               <li><Link to="/transformations" className="hover:text-white hover:tracking-[0.3em] transition-all duration-300">Data Lab</Link></li>
               <li><Link to="/book-appointment" className="hover:text-white hover:tracking-[0.3em] transition-all duration-300">Evaluation</Link></li>
+              <li><Link to="/journal" className="hover:text-white hover:tracking-[0.3em] transition-all duration-300">Clinical Journal</Link></li> {/* <-- ADDED THIS */}
             </ul>
           </div>
 

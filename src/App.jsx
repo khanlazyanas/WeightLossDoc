@@ -12,6 +12,7 @@ import CookiePolicy from './pages/CookiePolicy';
 import ScrollToTop from './components/ScrollToTop';
 import Assessment from './pages/Assessment';
 import FloatingNode from './components/FloatingNode'; // <-- Naya component yahan import kiya hai
+import Journal from './pages/Journal';
 
 function App() {
   const location = useLocation();
@@ -40,6 +41,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/apply" element={<Assessment />} />
+          <Route path="/journal" element={<Journal />} />
         </Routes>
       </main>
 
