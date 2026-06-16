@@ -21,6 +21,46 @@ const toastOptions = {
   success: { iconTheme: { primary: '#10b9bd', secondary: '#0f172a' } },
 };
 
+// === INTERACTIVE VIDEO COMPONENT (NEW) ===
+const VideoCard = ({ thumbnail, videoSrc, tag, text }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  return (
+    <div className="group relative w-full aspect-video bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-700/50 cursor-pointer">
+       {!isPlaying ? (
+         <>
+           <img src={thumbnail} alt="Patient Video" className="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-50 transition-all duration-700" />
+           <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/20 to-transparent opacity-90"></div>
+           
+           {/* Play Button Overlay */}
+           <div 
+             className="absolute inset-0 flex items-center justify-center z-20"
+             onClick={() => setIsPlaying(true)}
+           >
+             <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#10b9bd] group-hover:border-[#10b9bd] transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_40px_rgba(16,185,189,0.5)] scale-90 group-hover:scale-100">
+                <svg className="w-6 sm:w-8 h-6 sm:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+             </div>
+           </div>
+
+           <div className="absolute bottom-6 left-6 right-6 pointer-events-none">
+             <div className="flex items-center gap-3 mb-3">
+               <span className="bg-[#10b9bd] text-[#0f172a] px-3 py-1.5 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-widest shadow-sm">{tag}</span>
+             </div>
+             <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight drop-shadow-md">{text}</h4>
+           </div>
+         </>
+       ) : (
+         <video 
+           src={videoSrc} 
+           controls 
+           autoPlay 
+           className="w-full h-full object-cover outline-none bg-black"
+         />
+       )}
+    </div>
+  );
+};
+
 // === GUEST GATEKEEPER MODAL (Secure Backend Verification) ===
 const DoctorGatekeeperModal = ({ onClose, onUnlock }) => {
   const [attemptedKey, setAttemptedKey] = useState('');
@@ -102,7 +142,7 @@ const AddTransformationModal = ({ onClose, onRefresh, API_URL }) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith('image/')) {
       setFile(file);
-      setPreview(URL.createObjectURL(file)); // Generate preview URL
+      setPreview(URL.createObjectURL(file)); 
     } else {
       toast.error('Please upload a valid image file (jpg/png).', toastOptions);
     }
@@ -310,9 +350,8 @@ const Transformations = () => {
         </div>
       </section>
 
-      {/* ================= CLINICAL VIDEO EVIDENCE ================= */}
+      {/* ================= CLINICAL VIDEO EVIDENCE (NOW FULLY PLAYABLE) ================= */}
       <section className="py-20 md:py-32 px-4 sm:px-6 bg-[#0f172a] relative z-10 rounded-t-[3rem] sm:rounded-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.15)] overflow-hidden mx-2 sm:mx-6 md:mx-8">
-        {/* Dark Mode Mesh */}
         <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
         
         <div className="container mx-auto max-w-7xl relative z-10">
@@ -322,48 +361,21 @@ const Transformations = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
-            
-            {/* Video Card 1 */}
-            <div className="group relative w-full aspect-video bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-700/50 cursor-pointer">
-               {/* Replace src with actual patient video thumbnail */}
-               <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000" alt="Patient Video" className="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-50 transition-all duration-700" />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/20 to-transparent opacity-90"></div>
-               
-               {/* Play Button Overlay */}
-               <div className="absolute inset-0 flex items-center justify-center">
-                 <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#10b9bd] group-hover:border-[#10b9bd] transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_40px_rgba(16,185,189,0.5)]">
-                    <svg className="w-6 sm:w-8 h-6 sm:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                 </div>
-               </div>
+            {/* Playable Video Card 1 (Male) */}
+            <VideoCard 
+              thumbnail="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=1000"
+              videoSrc="https://cdn.pixabay.com/video/2019/01/16/20743-312154562_tiny.mp4"
+              tag="-24 KG (6 Months)"
+              text='"The insulin resistance protocol changed my life."'
+            />
 
-               <div className="absolute bottom-6 left-6 right-6">
-                 <div className="flex items-center gap-3 mb-3">
-                   <span className="bg-[#10b9bd] text-[#0f172a] px-3 py-1.5 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-widest">-24 KG (6 Months)</span>
-                 </div>
-                 <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight">"The insulin resistance protocol changed my life."</h4>
-               </div>
-            </div>
-
-            {/* Video Card 2 */}
-            <div className="group relative w-full aspect-video bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-700/50 cursor-pointer">
-               <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1000" alt="Patient Video" className="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-50 transition-all duration-700" />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/20 to-transparent opacity-90"></div>
-               
-               {/* Play Button Overlay */}
-               <div className="absolute inset-0 flex items-center justify-center">
-                 <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#10b9bd] group-hover:border-[#10b9bd] transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_40px_rgba(16,185,189,0.5)]">
-                    <svg className="w-6 sm:w-8 h-6 sm:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                 </div>
-               </div>
-
-               <div className="absolute bottom-6 left-6 right-6">
-                 <div className="flex items-center gap-3 mb-3">
-                   <span className="bg-[#10b9bd] text-[#0f172a] px-3 py-1.5 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-widest">-18 KG (4 Months)</span>
-                 </div>
-                 <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight">"Finally reversed my PCOS weight gain naturally."</h4>
-               </div>
-            </div>
-
+            {/* Playable Video Card 2 (Male) */}
+            <VideoCard 
+              thumbnail="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&q=80&w=1000"
+              videoSrc="https://cdn.pixabay.com/video/2020/05/26/40134-424911762_tiny.mp4"
+              tag="-18 KG (4 Months)"
+              text='"Finally reversed my metabolic weight gain naturally."'
+            />
           </div>
         </div>
       </section>
@@ -383,15 +395,15 @@ const Transformations = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             
-            {/* Static Photo Card 1 */}
+            {/* Static Photo Card 1 (Male) */}
             <div className="bg-white rounded-[2.5rem] border border-slate-200 p-5 shadow-sm hover:shadow-xl transition-all duration-500 group">
               <div className="flex gap-3 mb-6 h-64 sm:h-72">
                 <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
+                  <img src="https://images.unsplash.com/photo-1629860492984-7505ed256c78?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-3 left-3 bg-[#0f172a]/70 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest border border-white/20">Initial Marker</div>
                 </div>
                 <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-3 right-3 bg-[#10b9bd]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest shadow-md">Optimized</div>
                 </div>
               </div>
@@ -401,15 +413,15 @@ const Transformations = () => {
               </div>
             </div>
 
-            {/* Static Photo Card 2 */}
+            {/* Static Photo Card 2 (Male) */}
             <div className="bg-white rounded-[2.5rem] border border-slate-200 p-5 shadow-sm hover:shadow-xl transition-all duration-500 group">
               <div className="flex gap-3 mb-6 h-64 sm:h-72">
                 <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1522845015757-50bce044e5da?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
+                  <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-3 left-3 bg-[#0f172a]/70 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest border border-white/20">Initial Marker</div>
                 </div>
                 <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-3 right-3 bg-[#10b9bd]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest shadow-md">Optimized</div>
                 </div>
               </div>
@@ -419,15 +431,15 @@ const Transformations = () => {
               </div>
             </div>
 
-            {/* Static Photo Card 3 */}
+            {/* Static Photo Card 3 (Male) */}
             <div className="bg-white rounded-[2.5rem] border border-slate-200 p-5 shadow-sm hover:shadow-xl transition-all duration-500 group">
               <div className="flex gap-3 mb-6 h-64 sm:h-72">
                 <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
+                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=500" alt="Before" className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-3 left-3 bg-[#0f172a]/70 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest border border-white/20">Initial Marker</div>
                 </div>
                 <div className="w-1/2 h-full bg-slate-200 rounded-2xl relative overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=500" alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-3 right-3 bg-[#10b9bd]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest shadow-md">Optimized</div>
                 </div>
               </div>
