@@ -31,14 +31,14 @@ const Header = () => {
     return () => { document.body.style.overflow = 'unset'; };
   }, [isOpen]);
 
-  // PUBLIC NAVIGATION LINKS (Optimized & Clean)
-  // Dashboard (/command-center) link intentionally removed from here for UX/Security
+  // PUBLIC NAVIGATION LINKS (Dashboard Restored)
   const navLinks = [
     { name: 'Introduction', path: '/' },
     { name: 'Philosophy', path: '/about' },
-    { name: 'System', path: '/services' }, // "Protocols" renamed to "System" for better UX flow
-    { name: 'Transformations', path: '/transformations' }, // Cleaned up name
+    { name: 'System', path: '/services' },
+    { name: 'Transformations', path: '/transformations' }, 
     { name: 'Journal', path: '/journal' },
+    { name: 'Dashboard', path: '/command-center' }, // <-- Dashboard wapas add kar diya
   ];
 
   return (
@@ -113,7 +113,7 @@ const Header = () => {
               </div>
             </Link>
 
-            {/* Desktop Navigation Links (Floating Core - Crowding Fixed) */}
+            {/* Desktop Navigation Links (Padding adjusted slightly to fit all 6 items perfectly) */}
             <div className={`hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2 transition-all duration-700 ${
               scrolled ? "bg-slate-100/60 border border-slate-200/60 p-1 rounded-full" : ""
             }`}>
@@ -123,7 +123,8 @@ const Header = () => {
                   <Link 
                     key={link.name} 
                     to={link.path} 
-                    className={`relative px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 group overflow-hidden outline-none ${
+                    // Changed px-5 to px-3.5 to fit all links without crowding
+                    className={`relative px-3.5 xl:px-4 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 group overflow-hidden outline-none ${
                       isActive ? "text-white shadow-inner" : "text-slate-500 hover:text-[#0f172a]"
                     }`}
                   >
