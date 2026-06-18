@@ -37,6 +37,7 @@ const Header = () => {
     { name: 'Protocols', path: '/services' },
     { name: 'Journal', path: '/journal' },
     { name: 'Visual Proof', path: '/transformations' },
+    { name: 'Dashboard', path: '/command-center' },
   ];
 
   return (
