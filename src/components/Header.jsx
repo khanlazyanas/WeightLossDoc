@@ -31,13 +31,14 @@ const Header = () => {
     return () => { document.body.style.overflow = 'unset'; };
   }, [isOpen]);
 
+  // PUBLIC NAVIGATION LINKS (Optimized & Clean)
+  // Dashboard (/command-center) link intentionally removed from here for UX/Security
   const navLinks = [
     { name: 'Introduction', path: '/' },
     { name: 'Philosophy', path: '/about' },
-    { name: 'Protocols', path: '/services' },
+    { name: 'System', path: '/services' }, // "Protocols" renamed to "System" for better UX flow
+    { name: 'Transformations', path: '/transformations' }, // Cleaned up name
     { name: 'Journal', path: '/journal' },
-    { name: 'Visual Proof', path: '/transformations' },
-    { name: 'Dashboard', path: '/command-center' },
   ];
 
   return (
@@ -112,9 +113,9 @@ const Header = () => {
               </div>
             </Link>
 
-            {/* Desktop Navigation Links (Floating Core) */}
-            <div className={`hidden lg:flex items-center gap-1.5 absolute left-1/2 -translate-x-1/2 transition-all duration-700 ${
-              scrolled ? "bg-slate-100/60 border border-slate-200/60 p-1.5 rounded-full" : ""
+            {/* Desktop Navigation Links (Floating Core - Crowding Fixed) */}
+            <div className={`hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2 transition-all duration-700 ${
+              scrolled ? "bg-slate-100/60 border border-slate-200/60 p-1 rounded-full" : ""
             }`}>
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
@@ -122,8 +123,8 @@ const Header = () => {
                   <Link 
                     key={link.name} 
                     to={link.path} 
-                    className={`relative px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 group overflow-hidden outline-none ${
-                      isActive ? "text-white" : "text-slate-500 hover:text-[#0f172a]"
+                    className={`relative px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 group overflow-hidden outline-none ${
+                      isActive ? "text-white shadow-inner" : "text-slate-500 hover:text-[#0f172a]"
                     }`}
                   >
                     {isActive && (
@@ -143,7 +144,7 @@ const Header = () => {
               <Link 
                 to="/apply" 
                 className={`hidden md:flex group relative items-center justify-center rounded-xl shadow-[0_10px_20px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_15px_30px_-10px_rgba(16,185,189,0.4)] overflow-hidden transition-all duration-500 active:scale-95 outline-none ${
-                  scrolled ? "h-10 w-44" : "h-12 w-52"
+                  scrolled ? "h-10 w-40" : "h-12 w-48"
                 }`}
               >
                 <div className="absolute inset-0 bg-[#0f172a] transition-colors duration-500"></div>
@@ -153,7 +154,7 @@ const Header = () => {
                 <div className={`relative text-white font-black uppercase flex items-center gap-2 transition-all duration-300 ${
                   scrolled ? "text-[8px] tracking-[0.2em]" : "text-[9px] tracking-[0.3em]"
                 }`}>
-                  Am I a Candidate?
+                  Start Qualification
                   <svg className="w-3 h-3 transform transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                 </div>
               </Link>
@@ -198,10 +199,10 @@ const Header = () => {
         <div className={`absolute inset-0 bg-[#0f172a] transition-transform duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${
           isOpen ? "translate-y-0" : "-translate-y-full"
         }`}>
-           <div className="absolute bottom-0 right-0 w-[150vw] h-[150vw] bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-[#10b9bd]/15 via-transparent to-transparent opacity-80 pointer-events-none translate-x-1/4 translate-y-1/4"></div>
-           <div className="absolute top-1/4 left-0 w-full h-full opacity-[0.02] text-white font-black text-[25vw] leading-none select-none pointer-events-none flex items-center justify-center -rotate-12">
-             CLINICAL
-           </div>
+            <div className="absolute bottom-0 right-0 w-[150vw] h-[150vw] bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-[#10b9bd]/15 via-transparent to-transparent opacity-80 pointer-events-none translate-x-1/4 translate-y-1/4"></div>
+            <div className="absolute top-1/4 left-0 w-full h-full opacity-[0.02] text-white font-black text-[25vw] leading-none select-none pointer-events-none flex items-center justify-center -rotate-12">
+              CLINICAL
+            </div>
         </div>
 
         {/* Menu Content */}
@@ -210,7 +211,7 @@ const Header = () => {
           <div className="space-y-10 sm:space-y-12">
             <div className="flex items-center gap-4 transition-all duration-700 delay-300" style={{ opacity: isOpen ? 1 : 0, transform: isOpen ? 'translateY(0)' : 'translateY(20px)' }}>
               <div className="w-8 h-[2px] bg-[#10b9bd]"></div>
-              <p className="text-[#10b9bd] font-black uppercase tracking-[0.5em] text-[9px] sm:text-[10px]">Navigation</p>
+              <p className="text-[#10b9bd] font-black uppercase tracking-[0.5em] text-[9px] sm:text-[10px]">Navigation Matrix</p>
             </div>
             
             <div className="flex flex-col gap-6 sm:gap-8">
@@ -244,7 +245,7 @@ const Header = () => {
               onClick={() => setIsOpen(false)}
               className="group flex items-center justify-between w-full bg-white text-[#0f172a] p-3 pl-8 sm:p-4 sm:pl-10 rounded-[1.5rem] hover:bg-[#10b9bd] hover:text-white transition-all duration-500 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] outline-none active:scale-[0.98]"
             >
-              <span className="font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-[11px]">Am I a Candidate?</span>
+              <span className="font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-[11px]">Metabolic Evaluation</span>
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0f172a] rounded-full flex items-center justify-center text-white group-hover:scale-95 transition-transform duration-500 shadow-md">
                  <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
               </div>
