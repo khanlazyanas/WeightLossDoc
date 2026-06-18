@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 import DrAbubakarImg from '../assets/drabubakarkhan.png'; 
 
 const Home = () => {
@@ -7,6 +9,10 @@ const Home = () => {
   const [height, setHeight] = useState('');
   const [bmiResult, setBmiResult] = useState(null);
   const [counter, setCounter] = useState(15420);
+
+  // === LEAD MAGNET STATES (NEW) ===
+  const [leadForm, setLeadForm] = useState({ name: '', phone: '', email: '' });
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
 
   // Live Counter Simulation (Smooth increment for premium feel)
   useEffect(() => {
@@ -46,9 +52,52 @@ const Home = () => {
     }
   };
 
+  // === LEAD MAGNET SUBMIT HANDLER (NEW API CONNECTION) ===
+  const handleLeadSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmittingLead(true);
+    const loadingToast = toast.loading('Securing your blueprint...', {
+      style: { background: '#0f172a', color: '#fff', borderRadius: '12px' }
+    });
+
+    try {
+      // Backend API Call to save lead in MongoDB
+      await axios.post('https://weigtlossbackend.onrender.com/api/leads', leadForm);
+      
+      toast.success('Access Granted! Downloading PDF...', { 
+        id: loadingToast, 
+        style: { background: '#0f172a', color: '#10b9bd', borderRadius: '12px' } 
+      });
+      
+      // Clear form after success
+      setLeadForm({ name: '', phone: '', email: '' });
+      
+      // Automatic PDF Download trigger
+      // Note: Make sure you have a 'blueprint.pdf' file inside your 'public' folder in React
+      const link = document.createElement('a');
+      link.href = '/blueprint.pdf'; 
+      link.setAttribute('download', '7-Day-Metabolic-Reset-Dr-Khan.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+
+    } catch (error) {
+      console.error(error);
+      toast.error('Network Error. Please try again.', { 
+        id: loadingToast, 
+        style: { background: '#0f172a', color: '#ef4444', borderRadius: '12px' } 
+      });
+    } finally {
+      setIsSubmittingLead(false);
+    }
+  };
+
   return (
     <div className="font-sans text-[#0f172a] bg-[#fafafa] selection:bg-[#10b9bd] selection:text-white min-h-screen relative overflow-hidden">
       
+      {/* Toast Notification System (For Lead Form Alerts) */}
+      <Toaster position="bottom-center" />
+
       {/* Global Ambient Background */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)', backgroundSize: '4rem 4rem' }}></div>
@@ -335,21 +384,42 @@ const Home = () => {
             <div className="w-full lg:w-1/2">
               <div className="bg-white rounded-2xl p-6 sm:p-8">
                 <h4 className="text-lg font-black text-[#0f172a] mb-6 text-center">Secure Your Blueprint</h4>
-                <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Data Captured! PDF Downloading..."); }}>
+                <form className="space-y-4" onSubmit={handleLeadSubmit}>
                   <div>
                     <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
-                    <input type="text" required className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" placeholder="Your Name" />
+                    <input 
+                      type="text" 
+                      required 
+                      className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" 
+                      placeholder="Your Name" 
+                      value={leadForm.name}
+                      onChange={(e) => setLeadForm({...leadForm, name: e.target.value})}
+                    />
                   </div>
                   <div>
                     <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">WhatsApp Number</label>
-                    <input type="tel" required className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" placeholder="+91 00000 00000" />
+                    <input 
+                      type="tel" 
+                      required 
+                      className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" 
+                      placeholder="+91 00000 00000" 
+                      value={leadForm.phone}
+                      onChange={(e) => setLeadForm({...leadForm, phone: e.target.value})}
+                    />
                   </div>
                   <div>
                     <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
-                    <input type="email" required className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" placeholder="your@email.com" />
+                    <input 
+                      type="email" 
+                      required 
+                      className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" 
+                      placeholder="your@email.com" 
+                      value={leadForm.email}
+                      onChange={(e) => setLeadForm({...leadForm, email: e.target.value})}
+                    />
                   </div>
-                  <button type="submit" className="w-full bg-[#0f172a] text-white py-4 rounded-xl font-black uppercase tracking-widest text-[10px] sm:text-xs mt-2 hover:bg-[#10b9bd] transition-colors shadow-lg hover:shadow-xl active:scale-95">
-                    Unlock & Download PDF
+                  <button type="submit" disabled={isSubmittingLead} className="w-full bg-[#0f172a] text-white py-4 rounded-xl font-black uppercase tracking-widest text-[10px] sm:text-xs mt-2 hover:bg-[#10b9bd] transition-colors shadow-lg hover:shadow-xl active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed">
+                    {isSubmittingLead ? 'Encrypting & Uploading...' : 'Unlock & Download PDF'}
                   </button>
                 </form>
                 <p className="text-[8px] text-center text-slate-400 font-medium uppercase tracking-widest mt-4">Your data is cryptographically secured.</p>
