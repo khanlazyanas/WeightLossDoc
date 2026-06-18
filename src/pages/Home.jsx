@@ -133,7 +133,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ================= CLINICAL AFFILIATIONS & PRESS (NEW ADDITION) ================= */}
+      {/* ================= CLINICAL AFFILIATIONS & PRESS ================= */}
       <section className="py-8 sm:py-10 bg-white border-y border-slate-100 overflow-hidden relative z-10 shadow-[0_5px_15px_-10px_rgba(0,0,0,0.05)]">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <p className="text-center text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 sm:mb-8">
@@ -182,7 +182,7 @@ const Home = () => {
                </form>
              </div>
 
-             {/* Right Result Panel (Dynamic Colors) */}
+             {/* Right Result Panel */}
              <div className="w-full lg:w-1/2 bg-[#0f172a] p-8 sm:p-12 lg:p-20 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[350px] sm:min-h-[400px]">
                {/* Animated Background Mesh */}
                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#10b9bd]/20 via-[#0f172a] to-[#0f172a] opacity-80"></div>
@@ -233,7 +233,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ================= THE SCIENCE SECTION (Ultra Clean) ================= */}
+      {/* ================= THE SCIENCE SECTION ================= */}
       <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 relative z-10">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 items-center">
@@ -274,7 +274,7 @@ const Home = () => {
       </section>
 
       {/* ================= CORE PROGRAMS CARDS ================= */}
-      <section className="py-24 sm:py-32 md:py-40 px-4 sm:px-6 bg-white border-t border-slate-100 rounded-t-[3rem] sm:rounded-t-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.02)] relative z-10">
+      <section className="py-24 sm:py-32 md:py-40 px-4 sm:px-6 bg-white border-t border-slate-100 rounded-[3rem] sm:rounded-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.02)] relative z-10">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-24 space-y-3 sm:space-y-4">
             <p className="text-[#10b9bd] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-[9px] sm:text-[10px]">Core Protocols</p>
@@ -301,6 +301,61 @@ const Home = () => {
                 </Link>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= METABOLIC BLUEPRINT LEAD MAGNET (NEW SECTION) ================= */}
+      <section className="py-20 md:py-32 px-4 sm:px-6 bg-[#10b9bd] relative z-10 overflow-hidden">
+        {/* Background Patterns */}
+        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+        
+        <div className="container mx-auto max-w-6xl relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 bg-[#0f172a] rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-16 shadow-2xl border border-slate-700/50">
+            
+            {/* Left Content */}
+            <div className="w-full lg:w-1/2 text-white text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 mb-4 bg-white/10 px-3 py-1.5 rounded-md border border-white/20">
+                <svg className="w-4 h-4 text-[#10b9bd]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/></svg>
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#10b9bd]">Free Clinical Resource</span>
+              </div>
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tighter mb-4 leading-tight">Download The 7-Day Metabolic Reset.</h3>
+              <p className="text-slate-400 text-sm font-medium mb-6">Discover the exact biological protocols Dr. Khan uses to reverse insulin resistance and force lipid oxidation. No calorie counting required.</p>
+              
+              <ul className="space-y-2 text-left inline-block lg:block">
+                {['The Truth About Insulin Receptors', '14-Hour Biological Fasting Window', 'Clinical Macro-Nutrient Mapping'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-xs sm:text-sm text-slate-300 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#10b9bd]"></span> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Right Form */}
+            <div className="w-full lg:w-1/2">
+              <div className="bg-white rounded-2xl p-6 sm:p-8">
+                <h4 className="text-lg font-black text-[#0f172a] mb-6 text-center">Secure Your Blueprint</h4>
+                <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Data Captured! PDF Downloading..."); }}>
+                  <div>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
+                    <input type="text" required className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" placeholder="Your Name" />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">WhatsApp Number</label>
+                    <input type="tel" required className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" placeholder="+91 00000 00000" />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
+                    <input type="email" required className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl mt-1 outline-none focus:border-[#10b9bd] focus:bg-white transition-all text-sm font-medium" placeholder="your@email.com" />
+                  </div>
+                  <button type="submit" className="w-full bg-[#0f172a] text-white py-4 rounded-xl font-black uppercase tracking-widest text-[10px] sm:text-xs mt-2 hover:bg-[#10b9bd] transition-colors shadow-lg hover:shadow-xl active:scale-95">
+                    Unlock & Download PDF
+                  </button>
+                </form>
+                <p className="text-[8px] text-center text-slate-400 font-medium uppercase tracking-widest mt-4">Your data is cryptographically secured.</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

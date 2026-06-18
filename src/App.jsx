@@ -14,32 +14,35 @@ import ScrollToTop from './components/ScrollToTop';
 import Assessment from './pages/Assessment';
 import FloatingNode from './components/FloatingNode';
 import Journal from './pages/Journal';
-import PageWrapper from './components/PageWrapper'; // <-- Naya wrapper import kiya hai
+import PageWrapper from './components/PageWrapper';
+import AdminDashboard from './pages/AdminDashboard'; // <-- Admin Dashboard Import Kiya
 
 function App() {
   const location = useLocation();
   
-  // Check kar rahe hain ki kya user Assessment (Candidacy Quiz) wale page par hai
+  // Routes check kar rahe hain taaki special pages par unwanted elements hide kar sakein
   const isAssessmentPage = location.pathname === '/apply';
+  const isAdminPage = location.pathname === '/command-center';
+  
+  // Agar user in dono me se kisi page par hai, toh standard layout hide hoga
+  const hideStandardLayout = isAssessmentPage || isAdminPage;
 
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans text-slate-800">
       <ScrollToTop />
       
-      {/* Header ke andar humne already logic lagaya hua hai isko hide karne ka */}
-      <Header />
+      {/* Header ko Admin Page par hide kar diya gaya hai */}
+      {!isAdminPage && <Header />}
       
-      {/* Yahan conditional padding lagayi hai. 
-          Agar user /apply page par hai toh humein extra padding ki zaroorat nahi hai.
-      */}
-      <main className={`flex-grow ${isAssessmentPage ? '' : 'pt-24 lg:pt-32'}`}>
+      {/* Conditional Padding: Assessment aur Admin par extra top padding nahi chahiye */}
+      <main className={`flex-grow ${hideStandardLayout ? '' : 'pt-24 lg:pt-32'}`}>
         
         {/* AnimatePresence framer-motion ko allow karta hai ki wo page leave/enter animations handle kare */}
         <AnimatePresence mode="wait">
           {/* CRITICAL: Routes ko location aur key dena zaroori hai animation detect karne ke liye */}
           <Routes location={location} key={location.pathname}>
             
-            {/* Saare main routes ko PageWrapper ke andar daal diya gaya hai */}
+            {/* Saare main website routes */}
             <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
             <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
             <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
@@ -50,16 +53,18 @@ function App() {
             <Route path="/cookie-policy" element={<PageWrapper><CookiePolicy /></PageWrapper>} />
             <Route path="/journal" element={<PageWrapper><Journal /></PageWrapper>} />
             
-            {/* Assessment page khud mein ek full-screen overlay hai, usko wrapper ki zaroorat nahi hai */}
+            {/* Assessment Full-Screen Funnel */}
             <Route path="/apply" element={<Assessment />} />
+            
+            {/* ================= SECURE ADMIN PORTAL ================= */}
+            <Route path="/command-center" element={<AdminDashboard />} />
             
           </Routes>
         </AnimatePresence>
       </main>
 
-      {/* ================= CRITICAL FIX ================= */}
-      {/* FloatingNode aur Footer sirf tabhi dikhenge jab user /apply page par NAHI hoga */}
-      {!isAssessmentPage && (
+      {/* FloatingNode aur Footer Admin aur Assessment pages par HIDE rahenge */}
+      {!hideStandardLayout && (
         <>
           <FloatingNode />
           <Footer />
