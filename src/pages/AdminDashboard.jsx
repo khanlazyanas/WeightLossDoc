@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
-// Apne backend endpoints set karein (Leads fetch karne ke liye aapko backend me ek naya route banana hoga)
+// Apne backend endpoints
 const VERIFY_URL = 'https://weigtlossbackend.onrender.com/api/verify-owner';
 const LEADS_API_URL = 'https://weigtlossbackend.onrender.com/api/leads'; 
 
@@ -45,19 +45,20 @@ const AdminDashboard = () => {
   const fetchLeads = async (token) => {
     setIsLoadingLeads(true);
     try {
-      // NOTE: Backend par '/api/leads' route banana padega jo DB se saare leads return kare
+      // API call to real MongoDB database
       const response = await axios.get(LEADS_API_URL, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      setLeads(response.data);
+      
+      // Sometimes backend sends { data: [...] } instead of just array
+      const actualLeads = response.data.data || response.data;
+      setLeads(actualLeads);
+
     } catch (error) {
-      console.error('Failed to fetch leads', error);
-      // Agar backend ready nahi hai, toh testing ke liye hum dummy data dikha rahe hain:
-      setLeads([
-        { _id: '1', name: 'Rahul Verma', phone: '+91 9876543210', email: 'rahul.v@gmail.com', date: '2026-06-18' },
-        { _id: '2', name: 'Sneha Sharma', phone: '+91 9988776655', email: 'sneha99@yahoo.com', date: '2026-06-18' },
-        { _id: '3', name: 'Amit Singh', phone: '+91 8877665544', email: 'amit.singh@outlook.com', date: '2026-06-17' },
-      ]);
+      console.error('Failed to fetch real leads:', error);
+      toast.error('Failed to sync live data. Please check backend connection.');
+      // Dummy data removed. Now it will enforce an empty array on error.
+      setLeads([]); 
     } finally {
       setIsLoadingLeads(false);
     }
@@ -104,7 +105,7 @@ const AdminDashboard = () => {
   // ================= DASHBOARD SCREEN =================
   return (
     <div className="min-h-screen bg-[#f8fafc] text-[#0f172a] font-sans pb-20">
-      
+      <Toaster />
       <header className="bg-[#0f172a] text-white px-6 py-4 flex justify-between items-center shadow-lg">
         <div className="flex items-center gap-3">
           <div className="w-3 h-3 rounded-full bg-rose-500 animate-pulse"></div>
@@ -143,11 +144,11 @@ const AdminDashboard = () => {
                 {isLoadingLeads ? (
                   <tr><td colSpan="5" className="p-10 text-center text-slate-400 font-medium animate-pulse">Synchronizing securely...</td></tr>
                 ) : leads.length === 0 ? (
-                  <tr><td colSpan="5" className="p-10 text-center text-slate-400 font-medium">Pipeline is currently empty.</td></tr>
+                  <tr><td colSpan="5" className="p-10 text-center text-slate-400 font-medium">Pipeline is currently empty. No leads captured yet.</td></tr>
                 ) : (
                   leads.map((lead) => (
                     <tr key={lead._id} className="hover:bg-slate-50 transition-colors">
-                      <td className="p-5 text-sm font-medium text-slate-500 whitespace-nowrap">{lead.date}</td>
+                      <td className="p-5 text-sm font-medium text-slate-500 whitespace-nowrap">{lead.date || lead.createdAt?.substring(0, 10) || 'N/A'}</td>
                       <td className="p-5 text-sm font-bold text-[#0f172a] whitespace-nowrap">{lead.name}</td>
                       <td className="p-5 text-sm font-medium text-slate-600 whitespace-nowrap">{lead.phone}</td>
                       <td className="p-5 text-sm font-medium text-slate-600 whitespace-nowrap">{lead.email}</td>
