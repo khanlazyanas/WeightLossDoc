@@ -10,6 +10,8 @@ const Home = () => {
   const [bmiResult, setBmiResult] = useState(null);
   const [counter, setCounter] = useState(15420);
 
+  const navigate = useNavigate();
+
   // === LEAD MAGNET STATES (NEW) ===
   const [leadForm, setLeadForm] = useState({ name: '', phone: '', email: '' });
   const [isSubmittingLead, setIsSubmittingLead] = useState(false);
