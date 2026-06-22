@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import DrAbubakarImg from '../assets/drabubakarkhan.png'; 
@@ -80,6 +80,10 @@ const Home = () => {
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
+
+      setTimeout(() => {
+        navigate('/thank-you'); 
+      }, 800);
 
     } catch (error) {
       console.error(error);

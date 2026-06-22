@@ -16,6 +16,7 @@ import FloatingNode from './components/FloatingNode';
 import Journal from './pages/Journal';
 import PageWrapper from './components/PageWrapper';
 import AdminDashboard from './pages/AdminDashboard'; // <-- Admin Dashboard Import Kiya
+import ThankYou from './pages/ThankYou';
 
 function App() {
   const location = useLocation();
@@ -58,6 +59,7 @@ function App() {
             
             {/* ================= SECURE ADMIN PORTAL ================= */}
             <Route path="/command-center" element={<AdminDashboard />} />
+            <Route path="/thank-you" element={<ThankYou />} />
             
           </Routes>
         </AnimatePresence>
